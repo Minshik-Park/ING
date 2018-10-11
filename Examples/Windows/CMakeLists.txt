@@ -1,0 +1,1 @@
+add_subdirectory(ING_Win32_Sample)

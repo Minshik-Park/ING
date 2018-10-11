@@ -13,12 +13,21 @@
 *.userprefs
 
 # Build results
+[Bb]uild/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
 x64/
 x86/
+x64Release/
+x64Debug/
+x86Release/
+x86Debug/
+Win32Debug/
+Win32Release/
+arm64Release/
+arm64Debug/
 bld/
 [Bb]in/
 [Oo]bj/
