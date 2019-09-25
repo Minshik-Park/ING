@@ -1,0 +1,19 @@
+<!--
+***********************************************************************************************
+Directory.Build.Props
+
+Defines commonly used directory paths and build properties
+***********************************************************************************************
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <INGRoot>$(MSBuildThisFileDirectory)</INGRoot>
+    <INGEngineRoot>$(INGRoot)INGEngine\</INGEngineRoot>
+    <INGGraphicsRoot>$(INGRoot)INGGraphics\</INGGraphicsRoot>
+    <INGAssetRoot>$(INGRoot)Assets\</INGAssetRoot>
+    <INGAppFrameworkRoot>$(INGRoot)AppFramework\</INGAppFrameworkRoot>
+    <INGSamplesRoot>$(INGRoot)Samples\</INGSamplesRoot>
+    <INGBuildOutput>$(INGRoot)INGBuild\</INGBuildOutput>
+  </PropertyGroup>
+</Project>
