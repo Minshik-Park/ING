@@ -15,5 +15,6 @@ Defines commonly used directory paths and build properties
     <INGAppFrameworkRoot>$(INGRoot)AppFramework\</INGAppFrameworkRoot>
     <INGSamplesRoot>$(INGRoot)Samples\</INGSamplesRoot>
     <INGBuildOutput>$(INGRoot)INGBuild\</INGBuildOutput>
+    <INGLibraries>$(INGBuildOutput)$(Platform)\$(Configuration)\Libraries\</INGLibraries>
   </PropertyGroup>
 </Project>

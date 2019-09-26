@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INGAppFrameworkWin32", "INGAppFrameworkWin32.vcxproj", "{966E5746-F126-499F-8EA6-4B0C4FBB7987}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Debug|x64.ActiveCfg = Debug|x64
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Debug|x64.Build.0 = Debug|x64
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Debug|x86.ActiveCfg = Debug|Win32
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Debug|x86.Build.0 = Debug|Win32
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Release|x64.ActiveCfg = Release|x64
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Release|x64.Build.0 = Release|x64
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Release|x86.ActiveCfg = Release|Win32
+		{966E5746-F126-499F-8EA6-4B0C4FBB7987}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {047341F9-629D-426C-9A59-77C1BBDF506F}
+	EndGlobalSection
+EndGlobal
