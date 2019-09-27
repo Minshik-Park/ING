@@ -6,6 +6,9 @@
 #include "framework.h"
 #include <INGAppFrameworkWin32.h>
 
+//
+// Win32 Sample Application
+//
 class Win32SampleApplication : public ING::AppFramework::Win32::Window
 {
 public:

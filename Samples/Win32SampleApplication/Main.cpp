@@ -29,46 +29,28 @@ int APIENTRY wWinMain(
 	std::unique_ptr<Win32SampleApplication> appWindow = std::make_unique<Win32SampleApplication>(hInstance);
 
 	// Register window class
-	hr = appWindow->RegisterWindowClass(
-		szWindowClass,
-		MAKEINTRESOURCEW(IDC_WIN32SAMPLEAPPLICATION),
-		CS_HREDRAW | CS_VREDRAW,
-		LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WIN32SAMPLEAPPLICATION)),
-		LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL)),
-		LoadCursor(nullptr, IDC_ARROW),
-		(HBRUSH)(COLOR_WINDOW + 1));
-	if (FAILED(hr))
-	{
-		printf("Failed to Register application window class (0x%08x)\n", hr);
-		goto Cleanup;
-	}
+	GOTO_IF_HR_FAILED(appWindow->RegisterWindowClass(
+			szWindowClass,
+			MAKEINTRESOURCEW(IDC_WIN32SAMPLEAPPLICATION),
+			CS_HREDRAW | CS_VREDRAW,
+			LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WIN32SAMPLEAPPLICATION)),
+			LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL)),
+			LoadCursor(nullptr, IDC_ARROW),
+			(HBRUSH)(COLOR_WINDOW + 1)), Cleanup);
 
 	// Register Windows message handlers
-	hr = appWindow->PrepareMessageHandlers();
-	if (FAILED(hr))
-	{
-		printf("Failed to add message handlers (0x%08x)\n", hr);
-		goto Cleanup;
-	}
+	GOTO_IF_HR_FAILED(appWindow->PrepareMessageHandlers(), Cleanup);
 
 	// Create Window
-	hr = appWindow->Create(szTitle, 800, 600, false);
-	if (FAILED(hr))
-	{
-		printf("Failed to Create application window (0x%08x)\n", hr);
-		goto Cleanup;
-	}
+	GOTO_IF_HR_FAILED(appWindow->Create(szTitle, 800, 600, false), Cleanup);
 
+	// Show Window
 	appWindow->Show();
 	appWindow->SetForeground();
 	appWindow->SetFocus();
 
-	hr = appWindow->Run(true, LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WIN32SAMPLEAPPLICATION)));
-	if (FAILED(hr))
-	{
-		printf("Failed to Run application window (0x%08x)\n", hr);
-		goto Cleanup;
-	}
+	// Run main message loop.
+	GOTO_IF_HR_FAILED(appWindow->Run(true, LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WIN32SAMPLEAPPLICATION))), Cleanup);
 
 Cleanup:
 	return (int)hr;

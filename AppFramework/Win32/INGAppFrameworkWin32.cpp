@@ -16,11 +16,6 @@ std::map<HWND, Window*> Window::s_mapThis;
 Window::Window(HINSTANCE hInstance) :
 	m_hInstance(hInstance)
 {
-	// Initialize COM
-	if (FAILED(CoInitialize(nullptr)))
-	{
-		assert(!L"CoInitialize failed");
-	}
 }
 
 ///
@@ -29,9 +24,6 @@ Window::Window(HINSTANCE hInstance) :
 Window::~Window()
 {
 	Shutdown();
-
-	// Release COM
-	CoUninitialize();
 }
 
 ///
@@ -81,6 +73,7 @@ HRESULT Window::RegisterWindowClass(
 ///
 HRESULT Window::Create(LPWSTR szTitle, int width, int height, bool fullscreen)
 {
+	HRESULT hr = S_OK;
 	m_fullscreen = fullscreen;
 	int windowPositionX = 0;
 	int windowPositionY = 0;
@@ -123,10 +116,7 @@ HRESULT Window::Create(LPWSTR szTitle, int width, int height, bool fullscreen)
 		m_hInstance,            // hInstance
 		this);                  // lpParam
 
-	if (!m_hWnd)
-	{
-		return HRESULT_FROM_WIN32(GetLastError());
-	}
+	RETURN_HR_IF_FALSE(m_hWnd != NULL, HRESULT_FROM_WIN32(GetLastError()));
 
 	// Get the client rect.
 	RECT clientRect;
@@ -135,7 +125,7 @@ HRESULT Window::Create(LPWSTR szTitle, int width, int height, bool fullscreen)
 	m_clientWidth = clientRect.right - clientRect.left;
 	m_clientHeight = clientRect.bottom - clientRect.top;
 
-	return S_OK;
+	return hr;
 }
 
 ///

@@ -18,7 +18,10 @@ HRESULT Win32SampleApplication::PrepareMessageHandlers()
 {
 	HRESULT hr = S_OK;
 
-	hr = AddMessageHandler(WM_COMMAND, std::bind(&Win32SampleApplication::OnCommand, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+	// Register WM_COMMAND event handler.
+	hr = AddMessageHandler(WM_COMMAND, std::bind(&Win32SampleApplication::OnCommand,
+		                                         this,
+		                                         std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 	if (FAILED(hr))
 	{
 		goto Cleanup;
@@ -30,6 +33,7 @@ Cleanup:
 
 HRESULT Win32SampleApplication::DoRun()
 {
+	// ToDo: Add code to custom action for loop.
 	return S_OK;
 }
 

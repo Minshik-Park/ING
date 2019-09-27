@@ -2,8 +2,7 @@
 // INGAppFrameworkWin32.h : Wrapper classes for Win32 APIs.
 //----------------------------------------------------------------------------------
 #pragma once
-
-#include <Windows.h>
+#include <INGCommon.h>
 #include <functional>
 #include <map>
 #include <string>
