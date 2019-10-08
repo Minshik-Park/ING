@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32SampleApplication", "Win32SampleApplication.vcxproj", "{E26C4B39-759D-4043-A3B7-EB5C871B4313}"
 	ProjectSection(ProjectDependencies) = postProject
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F} = {6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}
 		{966E5746-F126-499F-8EA6-4B0C4FBB7987} = {966E5746-F126-499F-8EA6-4B0C4FBB7987}
 		{4369EDA3-17B3-4639-AECF-3CD828D6840E} = {4369EDA3-17B3-4639-AECF-3CD828D6840E}
 	EndProjectSection
@@ -12,6 +13,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INGAppFrameworkWin32", "..\..\AppFramework\Win32\INGAppFrameworkWin32.vcxproj", "{966E5746-F126-499F-8EA6-4B0C4FBB7987}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INGCommon", "..\..\INGCommon\INGCommon.vcxproj", "{4369EDA3-17B3-4639-AECF-3CD828D6840E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "INGGraphics", "..\..\INGGraphics\INGGraphics.vcxproj", "{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4369EDA3-17B3-4639-AECF-3CD828D6840E} = {4369EDA3-17B3-4639-AECF-3CD828D6840E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,14 @@ Global
 		{4369EDA3-17B3-4639-AECF-3CD828D6840E}.Release|x64.Build.0 = Debug|x64
 		{4369EDA3-17B3-4639-AECF-3CD828D6840E}.Release|x86.ActiveCfg = Debug|x64
 		{4369EDA3-17B3-4639-AECF-3CD828D6840E}.Release|x86.Build.0 = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Debug|x64.ActiveCfg = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Debug|x64.Build.0 = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Debug|x86.ActiveCfg = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Debug|x86.Build.0 = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Release|x64.ActiveCfg = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Release|x64.Build.0 = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Release|x86.ActiveCfg = Debug|x64
+		{6A68A529-732F-4C2E-B3D1-2DDDE9B90B7F}.Release|x86.Build.0 = Debug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
