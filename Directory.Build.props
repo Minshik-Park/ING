@@ -17,7 +17,8 @@ Defines commonly used directory paths and build properties
     <INGSamplesRoot>$(INGRoot)Samples\</INGSamplesRoot>
     <INGBuildOutput>$(INGRoot)INGBuild\</INGBuildOutput>
     <INGCommonInclude>$(INGCommonRoot)Include\</INGCommonInclude>
-    <INGIncludes>$(INGCommonInclude)</INGIncludes>
+    <INGGraphicsInclude>$(INGGraphicsRoot)Include\</INGGraphicsInclude>
+    <INGIncludes>$(INGCommonInclude);$(INGGraphicsInclude)</INGIncludes>
     <INGLibraries>$(INGBuildOutput)$(Platform)\$(Configuration)\Libraries\</INGLibraries>
     <INGBin>$(INGBuildOutput)$(Platform)\$(Configuration)\Bin\</INGBin>
     <INGSymbols>$(INGBuildOutput)$(Platform)\$(Configuration)\Symbols\</INGSymbols>

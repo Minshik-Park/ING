@@ -5,7 +5,7 @@
 
 namespace ING
 {
-	typedef enum
+	enum class result_code_t
 	{
 		result_succeeded = 0,
 		result_failed,
@@ -18,6 +18,6 @@ namespace ING
 		result_rendering_device_removed,
 
 		result_count
-	} result_code_t;
+	};
 }
 

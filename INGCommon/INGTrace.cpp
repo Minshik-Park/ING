@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------
-// INGTrace.h : Implements the Debugging trace utilities.
+// INGTrace.cpp : Implements the Debugging trace utilities.
 //----------------------------------------------------------------------------------
-#define ING_EXPORTS
+#include "precomp.h"
 #include <INGCommon.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,32 +34,32 @@ void ING_DebugWrite(const wchar_t* msg, ...)
 // Utility function only used by Win32
 ING::result_code_t ING::HRESULT_TO_RESULT_CODE(const HRESULT hr)
 {
-	result_code_t result = result_failed;   // Generic failure
+	result_code_t result = result_code_t::result_failed;    // Generic failure
 
 	switch (hr)
 	{
 	case S_OK:
 	case S_FALSE:
-		result = result_succeeded;
+		result = result_code_t::result_succeeded;
 		break;
 	case E_OUTOFMEMORY:
-		result = result_out_of_memory;
+		result = result_code_t::result_out_of_memory;
 		break;
 	case E_INVALIDARG:
-		result = result_invalid_parameter;
+		result = result_code_t::result_invalid_parameter;
 		break;
 	case E_POINTER:
-		result = result_invalid_pointer;
+		result = result_code_t::result_invalid_pointer;
 		break;
 	case HRESULT_FROM_WIN32(ERROR_NOT_FOUND):
-		result = result_not_found;
+		result = result_code_t::result_not_found;
 		break;
 	case E_NOTIMPL:
-		result = result_not_implemented;
+		result = result_code_t::result_not_implemented;
 		break;
 	case DXGI_ERROR_DEVICE_REMOVED:
 	case DXGI_ERROR_DEVICE_RESET:
-		result = result_rendering_device_removed;
+		result = result_code_t::result_rendering_device_removed;
 		break;
 	default:
 		break;
