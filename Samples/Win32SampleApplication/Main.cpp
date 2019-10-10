@@ -6,6 +6,8 @@
 #include "Win32SampleApplication.h"
 #include <memory>
 
+#include <IGraphics.h>
+
 #define MAX_LOADSTRING 100
 
 int APIENTRY wWinMain(
@@ -48,6 +50,8 @@ int APIENTRY wWinMain(
 	appWindow->Show();
 	appWindow->SetForeground();
 	appWindow->SetFocus();
+
+    ING::Graphics::Test();
 
 	// Run main message loop.
 	GOTO_IF_HR_FAILED(appWindow->Run(true, LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WIN32SAMPLEAPPLICATION))), Cleanup);

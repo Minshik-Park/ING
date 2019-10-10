@@ -15,10 +15,13 @@ Defines commonly used directory paths and build properties
     <INGAssetRoot>$(INGRoot)Assets\</INGAssetRoot>
     <INGAppFrameworkRoot>$(INGRoot)AppFramework\</INGAppFrameworkRoot>
     <INGSamplesRoot>$(INGRoot)Samples\</INGSamplesRoot>
-    <INGBuildOutput>$(INGRoot)INGBuild\</INGBuildOutput>
+
     <INGCommonInclude>$(INGCommonRoot)Include\</INGCommonInclude>
     <INGGraphicsInclude>$(INGGraphicsRoot)Include\</INGGraphicsInclude>
-    <INGIncludes>$(INGCommonInclude);$(INGGraphicsInclude)</INGIncludes>
+    <INGEngineInclude>$(INGEngineRoot)Include\</INGEngineInclude>
+    <INGIncludes>$(INGCommonInclude);$(INGGraphicsInclude);$(INGEngineInclude)</INGIncludes>
+
+    <INGBuildOutput>$(INGRoot)INGBuild\</INGBuildOutput>
     <INGLibraries>$(INGBuildOutput)$(Platform)\$(Configuration)\Libraries\</INGLibraries>
     <INGBin>$(INGBuildOutput)$(Platform)\$(Configuration)\Bin\</INGBin>
     <INGSymbols>$(INGBuildOutput)$(Platform)\$(Configuration)\Symbols\</INGSymbols>

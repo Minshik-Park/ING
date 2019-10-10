@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="INGAppFrameworkWin32.h">
+    <ClInclude Include="AppFrameworkWin32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="INGAppFrameworkWin32.cpp">
+    <ClCompile Include="AppFrameworkWin32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

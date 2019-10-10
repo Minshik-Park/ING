@@ -172,15 +172,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="INGException.cpp" />
-    <ClCompile Include="INGTrace.cpp" />
+    <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="Trace.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\INGCommon.h" />
-    <ClInclude Include="Include\INGConfiguration.h" />
-    <ClInclude Include="Include\INGException.h" />
-    <ClInclude Include="Include\INGTrace.h" />
-    <ClInclude Include="Include\INGTypes.h" />
+    <ClInclude Include="Include\Common.h" />
+    <ClInclude Include="Include\Configuration.h" />
+    <ClInclude Include="Include\Exception.h" />
+    <ClInclude Include="Include\Trace.h" />
+    <ClInclude Include="Include\Types.h" />
     <ClInclude Include="precomp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

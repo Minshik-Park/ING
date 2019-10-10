@@ -1,17 +1,20 @@
 //----------------------------------------------------------------------------------
-// INGGraphicsDX12.h : Definition of ING Graphics for DX12 class.
+// Adapter.h : Definition the ING Adapter class.
 //----------------------------------------------------------------------------------
 #pragma once
-#include <INGGraphics.h>
+#include <Common.h>
 
 namespace ING {
 namespace Graphics {
 
-    class INGGraphicsDX12 : public INGGraphics
+    class ING_API Adapter
     {
     public:
-        INGGraphicsDX12();
-        virtual ~INGGraphicsDX12();
+        Adapter();
+        virtual ~Adapter();
+
+        virtual const wchar_t *Description() = 0;
+        virtual bool IsHardware() = 0;
     };
 
 }}

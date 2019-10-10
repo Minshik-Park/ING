@@ -2,7 +2,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 //----------------------------------------------------------------------------------
 #include "precomp.h"
-#include <INGCommon.h>
+#include <Common.h>
 
 #ifdef _WIN32
 

@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
-// INGException.h : Definitions of ING Exception classes.
+// Exception.h : Definitions of ING Exception classes.
 //----------------------------------------------------------------------------------
 #pragma once
-#include <INGCommon.h>
+#include <Common.h>
 #include <exception>
 #include <system_error>
 #include <string>
@@ -11,7 +11,7 @@ namespace ING
 {
     ING_API const char* ResultCodeToString(result_code_t result);
 
-    class Exception : std::exception
+    class Exception : public std::exception
     {
     public:
         Exception(result_code_t result) :

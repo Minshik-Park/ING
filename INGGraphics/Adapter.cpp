@@ -1,16 +1,16 @@
 //----------------------------------------------------------------------------------
-// INGGraphicsDX12.cpp : Implementation of ING Graphics for DX12 class.
+// Adapter.cpp : Implements the ING Adapter class.
 //----------------------------------------------------------------------------------
 #include "precomp.h"
-#include "INGGraphicsDX12.h"
+#include <Adapter.h>
 
 using namespace ING;
 using namespace ING::Graphics;
 
-INGGraphicsDX12::INGGraphicsDX12()
+Adapter::Adapter()
 {
 }
 
-INGGraphicsDX12::~INGGraphicsDX12()
+Adapter::~Adapter()
 {
 }

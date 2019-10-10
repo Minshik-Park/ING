@@ -4,7 +4,7 @@
 #pragma once
 
 #include "framework.h"
-#include <INGAppFrameworkWin32.h>
+#include <AppFrameworkWin32.h>
 
 //
 // Win32 Sample Application
