@@ -6,15 +6,24 @@
 #include "resource.h"
 #include <Exception.h>
 
+///
+/// Default Constructor.
+///
 Win32SampleApplication::Win32SampleApplication(HINSTANCE hInstance) :
 	Window(hInstance)
 {
 }
 
+///
+/// Default Destructor.
+///
 Win32SampleApplication::~Win32SampleApplication()
 {
 }
 
+///
+/// Create window and initialize the Engine.
+///
 HRESULT Win32SampleApplication::Create(LPWSTR szTitle, int width, int height, bool fullscreen)
 {
     HRESULT hr = S_OK;
@@ -46,7 +55,9 @@ Cleanup:
     return hr;
 }
 
-
+///
+/// Register Windows Message handlers.
+///
 HRESULT Win32SampleApplication::PrepareMessageHandlers()
 {
 	HRESULT hr = S_OK;
@@ -57,8 +68,20 @@ HRESULT Win32SampleApplication::PrepareMessageHandlers()
 		                                this,
 		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
 
-	// Register WM_EXITSIZEMOVE event handler.
+	// Register WM_ENTERSIZEMOVE event handler.
+	GOTO_IF_HR_FAILED(AddMessageHandler(WM_ENTERSIZEMOVE,
+                                        std::bind(&Win32SampleApplication::OnSize,
+		                                this,
+		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+
+    // Register WM_EXITSIZEMOVE event handler.
 	GOTO_IF_HR_FAILED(AddMessageHandler(WM_EXITSIZEMOVE,
+                                        std::bind(&Win32SampleApplication::OnSize,
+		                                this,
+		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+
+    // Register WM_SIZE event handler to handle minimize and maximize events.
+	GOTO_IF_HR_FAILED(AddMessageHandler(WM_SIZE,
                                         std::bind(&Win32SampleApplication::OnSize,
 		                                this,
 		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
@@ -66,12 +89,18 @@ Cleanup:
 	return hr;
 }
 
+///
+/// Do any custom action during message loop.
+///
 HRESULT Win32SampleApplication::DoRun()
 {
 	// ToDo: Add code to custom action for loop.
 	return S_OK;
 }
 
+///
+/// WM_COMMAND message handler.
+///
 HRESULT Win32SampleApplication::OnCommand(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int wmId = LOWORD(wParam);
@@ -88,20 +117,66 @@ HRESULT Win32SampleApplication::OnCommand(HWND hWnd, UINT message, WPARAM wParam
 	return E_NOTIMPL;
 }
 
+///
+/// Windows size messages handler.
+///
 HRESULT Win32SampleApplication::OnSize(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     if (m_spEngine)
     {
-        RECT rcClient;
-        GetClientRect(hWnd, &rcClient);
-
-        auto result = m_spEngine->OnWindowSizeChanged(rcClient.right - rcClient.left, rcClient.bottom - rcClient.top);
-        if (result != ING::result_code_t::succeeded)
+        switch (message)
         {
-            return E_FAIL;
-        }
+        case WM_SIZE:
+            switch (wParam)
+            {
+            case SIZE_MAXHIDE:
+            case SIZE_MINIMIZED:
+                // Stop rendering
+                m_spEngine->PauseRendering();
+                break;
+            case SIZE_MAXSHOW:
+                // Restart rendering
+                m_spEngine->ResumeRendering();
+                break;
+            case SIZE_MAXIMIZED:
+            case SIZE_RESTORED:
+                if (!m_windowSizing)
+                {
+                    // Window is restored from minimization or covered full screen window has been restored.
+                    auto result = m_spEngine->OnWindowSizeChanged(LOWORD(lParam), HIWORD(lParam));
+                    if (result != ING::result_code_t::succeeded)
+                    {
+                        return E_FAIL;
+                    }
 
-        return S_OK;
+                    // Window is shown. Make sure it's rendering.
+                    m_spEngine->ResumeRendering();
+                }
+
+                return S_OK;
+            }
+            break;
+        case WM_ENTERSIZEMOVE:
+            m_windowSizing = true;
+            break;
+        case WM_EXITSIZEMOVE:
+            // Window resizing done. Get client rect and resize renderer.
+            {
+                RECT rcClient;
+
+                m_windowSizing = false;
+                GetClientRect(hWnd, &rcClient);
+
+                auto result = m_spEngine->OnWindowSizeChanged(rcClient.right - rcClient.left, rcClient.bottom - rcClient.top);
+                if (result != ING::result_code_t::succeeded)
+                {
+                    return E_FAIL;
+                }
+
+                return S_OK;
+            }
+            break;
+        }
     }
 
     return E_NOTIMPL;

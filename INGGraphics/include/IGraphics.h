@@ -38,6 +38,9 @@ namespace Graphics {
 #endif
         virtual result_code_t GetAdapterAt(const int index, IAdapter **ppAdapter) = 0;
 
+        virtual void PauseRendering() = 0;
+        virtual void ResumeRendering() = 0;
+
         // System event handlers
         virtual result_code_t OnWindowSizeChanged(const int width, const int height) = 0;
 

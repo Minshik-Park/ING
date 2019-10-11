@@ -120,9 +120,12 @@ if(!(cond)) \
 }
 
 #define THROW_IF_FAILED(opResult) \
-if((ING::result_code_t _result = (opResult)) != ING::result_code_t::succeeded) \
 { \
-    throw ING::Exception(_result, __FUNCTION__, __LINE__); \
+    ING::result_code_t _result = (opResult); \
+    if(_result != ING::result_code_t::succeeded) \
+    { \
+        throw ING::Exception(_result, __FUNCTION__, __LINE__); \
+    } \
 }
 
 #ifdef _WIN32
@@ -135,6 +138,6 @@ if(!(cond)) \
 #define THROW_IF_HR_FAILED(hrResult) \
 if(FAILED(hr = (hrResult))) \
 { \
-    throw ING::Exception(hr, __FUNCTION__, __LINE__); \
+    throw ING::ExceptionHr(hr, __FUNCTION__, __LINE__); \
 }
 #endif

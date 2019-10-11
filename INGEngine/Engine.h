@@ -17,6 +17,9 @@ namespace ING
         // Public methods
         virtual result_code_t Initialize() override;
 
+        virtual void PauseRendering() override;
+        virtual void ResumeRendering() override;
+
         // System event handlers
         virtual result_code_t OnWindowSizeChanged(const int width, const int height) override;
 

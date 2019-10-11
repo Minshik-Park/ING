@@ -44,7 +44,7 @@ if(!(cond)) \
     } \
 }
 
-#define GOTO_IF_FALSE(resultCode, cond, label) \
+#define GOTO_IF_FALSE(cond, resultCode, label) \
 if(!(cond)) \
 { \
     result = (resultCode); \
@@ -88,4 +88,13 @@ if(FAILED(hr = (hrResult))) \
     ING_DebugWrite(L"%S (%d) Failed - 0x%08x\n", __FUNCTION__, __LINE__, hr); \
     goto label; \
 }
+
+#define GOTO_IF_FALSE_HR(cond, hrResult, label) \
+if(!(cond)) \
+{ \
+    hr = (hrResult); \
+    ING_DebugWrite(L"%S (%d) Failed - 0x%08x\n", __FUNCTION__, __LINE__, hr); \
+    goto label; \
+}
+
 #endif

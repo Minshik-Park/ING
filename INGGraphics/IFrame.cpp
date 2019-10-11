@@ -7,10 +7,16 @@
 using namespace ING;
 using namespace ING::Graphics;
 
+///
+/// Default Constructor.
+///
 IFrame::IFrame()
 {
 }
 
+///
+/// Default Destructor.
+///
 IFrame::~IFrame()
 {
 }

@@ -28,4 +28,5 @@ private:
 
 private:
     std::unique_ptr<ING::IEngine> m_spEngine;
+    bool m_windowSizing = false;
 };

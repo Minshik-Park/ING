@@ -15,8 +15,39 @@ namespace Graphics {
         FrameDX12(ID3D12Device *pD3DDevice);
         virtual ~FrameDX12();
 
-        virtual result_code_t OnSizeChanged(const int width, const int height);
+        virtual result_code_t Initialize() override;
+        virtual result_code_t OnSizeChanged(const int width, const int height) override;
+        virtual void ReleaseSizeDependentResources() override;
+
+        result_code_t SetBackBuffer(ID3D12Resource* pBackBuffer, DXGI_FORMAT format);
+
+        uint64_t FenceValue() { return m_fenceValue; }
+        void SetFenceValue(const uint64_t value) { m_fenceValue = value; }
+        void IncreaseFenceValue() { m_fenceValue++; }
+
+        D3D12_CPU_DESCRIPTOR_HANDLE GetRenderTargetView() const
+        {
+            return m_spRTVHeap->GetCPUDescriptorHandleForHeapStart();
+        }
+        D3D12_CPU_DESCRIPTOR_HANDLE GetDepthStencilView() const
+        {
+            return m_spDSVHeap->GetCPUDescriptorHandleForHeapStart();
+        }
+
     private:
+        Microsoft::WRL::ComPtr<ID3D12Device>            m_spD3DDevice;
+        Microsoft::WRL::ComPtr<ID3D12CommandAllocator>  m_spCommandAllocator;   // Command Allocator
+
+        Microsoft::WRL::ComPtr<ID3D12Resource>          m_spBackBuffer;         // Back buffer (Render Target)
+        Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>    m_spRTVHeap;            // Render Target View Heap
+
+        Microsoft::WRL::ComPtr<ID3D12Resource>          m_spDepthStencilBuffer; // Depth Stencil buffer
+        Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>    m_spDSVHeap;            // Depth Stensil View Heap
+
+        DXGI_FORMAT m_backBufferFormat = DXGI_FORMAT_UNKNOWN;
+        D3D12_VIEWPORT                                  m_screenViewport = {};
+
+        uint64_t m_fenceValue = 0;
     };
 
 }}

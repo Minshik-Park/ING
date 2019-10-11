@@ -30,7 +30,11 @@ void ING_DebugWrite(const wchar_t* msg, ...)
 #endif
 
 #ifdef _WIN32
-// Utility function only used by Win32
+// Utility functions only used by Win32
+
+///
+/// Convert HRESULT to result_code_t
+///
 ING::result_code_t ING::HRESULT_TO_RESULT_CODE(const HRESULT hr)
 {
 	result_code_t result = result_code_t::failed;    // Generic failure
@@ -67,6 +71,7 @@ ING::result_code_t ING::HRESULT_TO_RESULT_CODE(const HRESULT hr)
         break;
 	case DXGI_ERROR_DEVICE_REMOVED:
 	case DXGI_ERROR_DEVICE_RESET:
+    case DXGI_ERROR_DRIVER_INTERNAL_ERROR:
 		result = result_code_t::rendering_device_removed;
 		break;
 	default:

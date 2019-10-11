@@ -7,10 +7,16 @@
 using namespace ING;
 using namespace ING::Graphics;
 
+///
+/// Default Constructor.
+///
 IAdapter::IAdapter()
 {
 }
 
+///
+/// Default Destructor.
+///
 IAdapter::~IAdapter()
 {
 }

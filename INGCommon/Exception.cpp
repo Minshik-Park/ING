@@ -6,6 +6,9 @@
 
 namespace ING
 {
+    ///
+    /// Get string description of result code.
+    ///
     const char* ResultCodeToString(result_code_t result)
     {
         switch (result)

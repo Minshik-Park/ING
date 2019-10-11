@@ -9,16 +9,25 @@
 using namespace ING;
 using namespace ING::Graphics;
 
+///
+/// Default Constructor.
+///
 IGraphics::IGraphics()
 {
 
 }
 
+///
+/// Default Destructor.
+///
 IGraphics::~IGraphics()
 {
 
 }
 
+///
+/// Factory method to create graphics instance.
+///
 IGraphics* IGraphics::Create(GraphicsType type)
 {
     IGraphics* pRet = nullptr;

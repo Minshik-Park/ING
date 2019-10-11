@@ -8,16 +8,25 @@
 using namespace ING;
 using namespace ING::Graphics;
 
+///
+///
+///
 Engine::Engine(window_t wnd, Graphics::GraphicsType type) :
     m_window(wnd),
     m_graphicsType(type)
 {
 }
 
+///
+///
+///
 Engine::~Engine()
 {
 }
 
+///
+///
+///
 result_code_t Engine::Initialize()
 {
     result_code_t result = result_code_t::succeeded;
@@ -41,6 +50,31 @@ result_code_t Engine::Initialize()
     return result;
 }
 
+///
+///
+///
+void Engine::PauseRendering()
+{
+    if (m_spGraphics != nullptr)
+    {
+        m_spGraphics->PauseRendering();
+    }
+}
+
+///
+///
+///
+void Engine::ResumeRendering()
+{
+    if (m_spGraphics != nullptr)
+    {
+        m_spGraphics->ResumeRendering();
+    }
+}
+
+///
+///
+///
 result_code_t Engine::OnWindowSizeChanged(const int width, const int height)
 {
     if (m_spGraphics != nullptr)
