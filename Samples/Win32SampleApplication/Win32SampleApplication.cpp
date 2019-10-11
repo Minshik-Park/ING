@@ -57,8 +57,8 @@ HRESULT Win32SampleApplication::PrepareMessageHandlers()
 		                                this,
 		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
 
-	// Register WM_SIZE event handler.
-	GOTO_IF_HR_FAILED(AddMessageHandler(WM_SIZE,
+	// Register WM_EXITSIZEMOVE event handler.
+	GOTO_IF_HR_FAILED(AddMessageHandler(WM_EXITSIZEMOVE,
                                         std::bind(&Win32SampleApplication::OnSize,
 		                                this,
 		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
@@ -92,7 +92,10 @@ HRESULT Win32SampleApplication::OnSize(HWND hWnd, UINT message, WPARAM wParam, L
 {
     if (m_spEngine)
     {
-        auto result = m_spEngine->OnWindowSizeChanged(LOWORD(lParam), HIWORD(lParam));
+        RECT rcClient;
+        GetClientRect(hWnd, &rcClient);
+
+        auto result = m_spEngine->OnWindowSizeChanged(rcClient.right - rcClient.left, rcClient.bottom - rcClient.top);
         if (result != ING::result_code_t::succeeded)
         {
             return E_FAIL;
