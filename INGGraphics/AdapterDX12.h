@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
-// AdapterDX12.cpp : Definition the ING Adapter for DX12 class.
+// AdapterDX12.h : Definition the ING Adapter for DX12 class.
 //----------------------------------------------------------------------------------
 #pragma once
-#include <Adapter.h>
+#include <IAdapter.h>
 #include <wrl.h>
 #include <dxgi1_4.h>
 #include <string>
@@ -10,7 +10,7 @@
 namespace ING {
 namespace Graphics {
 
-    class AdapterDX12 : public Adapter
+    class AdapterDX12 : public IAdapter
     {
     public:
         AdapterDX12(IDXGIAdapter1 *pAdapter);

@@ -62,7 +62,7 @@ namespace ING
         }
 
     protected:
-        result_code_t m_result = result_code_t::result_succeeded;
+        result_code_t m_result = result_code_t::succeeded;
         std::string m_function;
         int m_line = -1;
     };
@@ -116,25 +116,25 @@ namespace ING
 #define THROW_IF_FALSE(cond, resultCode) \
 if(!(cond)) \
 { \
-    throw new ING::Exception(resultCode, __FUNCTION__, __LINE__); \
+    throw ING::Exception(resultCode, __FUNCTION__, __LINE__); \
 }
 
 #define THROW_IF_FAILED(opResult) \
-if((ING::result_code_t _result = (opResult)) != ING::result_succeeded) \
+if((ING::result_code_t _result = (opResult)) != ING::result_code_t::succeeded) \
 { \
-    throw new ING::Exception(_result, __FUNCTION__, __LINE__); \
+    throw ING::Exception(_result, __FUNCTION__, __LINE__); \
 }
 
 #ifdef _WIN32
 #define THROW_HR_IF_FALSE(cond, hrResult) \
 if(!(cond)) \
 { \
-    throw new ING::ExceptionHr(hrResult, __FUNCTION__, __LINE__); \
+    throw ING::ExceptionHr(hrResult, __FUNCTION__, __LINE__); \
 }
 
 #define THROW_IF_HR_FAILED(hrResult) \
 if(FAILED(hr = (hrResult))) \
 { \
-    throw new ING::Exception(hr, __FUNCTION__, __LINE__); \
+    throw ING::Exception(hr, __FUNCTION__, __LINE__); \
 }
 #endif

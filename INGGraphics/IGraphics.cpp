@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------
-// Graphics.cpp : Implements the ING Graphics class.
+// Graphics.cpp : Implements the ING Graphics interface class.
 //----------------------------------------------------------------------------------
 #include "precomp.h"
 #include <IGraphics.h>
@@ -31,28 +31,9 @@ IGraphics* IGraphics::Create(GraphicsType type)
         break;
 #endif
     default:
-        throw new Exception(result_code_t::result_invalid_parameter, __FUNCTION__, __LINE__, "Not supported (valid) Graphics Type");
+        throw Exception(result_code_t::invalid_parameter, __FUNCTION__, __LINE__, "Not supported (valid) Graphics Type");
         break;
     }
 
     return pRet;
-}
-
-void ING::Graphics::Test()
-{
-    try
-    {
-        std::unique_ptr<IGraphics> pGraphics(IGraphics::Create(GraphicsType::DX12));
-        auto result = pGraphics->Initialize();
-    }
-#ifdef _WIN32
-    catch (ExceptionHr exHr)
-    {
-        ING_DebugWrite(L"Exception : %S\n", exHr.what());
-    }
-#endif
-    catch (Exception ex)
-    {
-        ING_DebugWrite(L"Exception : %S\n", ex.what());
-    }
 }

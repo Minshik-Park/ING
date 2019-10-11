@@ -180,13 +180,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="Adapter.cpp" />
+    <ClCompile Include="FrameDX12.cpp" />
+    <ClCompile Include="IAdapter.cpp" />
     <ClCompile Include="AdapterDX12.cpp" />
+    <ClCompile Include="IFrame.cpp" />
     <ClCompile Include="IGraphics.cpp" />
     <ClCompile Include="GraphicsDX12.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Adapter.h" />
+    <ClInclude Include="FrameDX12.h" />
+    <ClInclude Include="include\IAdapter.h" />
+    <ClInclude Include="Include\IFrame.h" />
     <ClInclude Include="include\IGraphics.h" />
     <ClInclude Include="AdapterDX12.h" />
     <ClInclude Include="GraphicsDX12.h" />

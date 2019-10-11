@@ -10,6 +10,7 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 #include <Windows.h>
+#include <Unknwn.h>
 #endif
 
 //----------------------------------------------------------------------------------
@@ -36,7 +37,7 @@ if(!(cond)) \
 #define RETURN_IF_FAILED(opResult) \
 { \
     ING::result_code_t _result = (opResult); \
-    if(_result != ING::result_code_t::result_succeeded) \
+    if(_result != ING::result_code_t::succeeded) \
     { \
         ING_DebugWrite(L"%S (%d) Failed - %d\n", __FUNCTION__, __LINE__, _result); \
         return _result; \
@@ -52,7 +53,7 @@ if(!(cond)) \
 }
 
 #define GOTO_IF_FAILED(opResult, label) \
-if((result = (opResult)) != ING::result_code_t::result_succeeded) \
+if((result = (opResult)) != ING::result_code_t::succeeded) \
 { \
     ING_DebugWrite(L"%S (%d) Failed - %d\n", __FUNCTION__, __LINE__, result); \
     goto label; \

@@ -1,11 +1,10 @@
 //----------------------------------------------------------------------------------
-// Graphics.h : Defines the ING Graphics class.
+// Graphics.h : Defines the ING Graphics interface class.
 //----------------------------------------------------------------------------------
 #pragma once
 #include <Common.h>
-#include <Adapter.h>
-#include <vector>
-#include <memory>
+#include <IAdapter.h>
+#include <IFrame.h>
 
 namespace ING {
 namespace Graphics {
@@ -19,6 +18,8 @@ namespace Graphics {
         DX12
     };
 
+    static const UINT c_frameCount = 3; // Use triple buffering.
+
     ///
     /// Graphics class
     ///
@@ -30,14 +31,22 @@ namespace Graphics {
         // Factory
         static IGraphics *Create(GraphicsType type);
 
-        virtual result_code_t Initialize() = 0;
+        // Public methods
+        virtual result_code_t Initialize(window_t wnd) = 0;
+#ifdef _WIN32
+        virtual result_code_t Initialize(core_window_t wnd) = 0;
+#endif
+        virtual result_code_t GetAdapterAt(const int index, IAdapter **ppAdapter) = 0;
 
-        virtual result_code_t GetAdapterAt(const int index, Adapter **ppAdapter) = 0;
+        // System event handlers
+        virtual result_code_t OnWindowSizeChanged(const int width, const int height) = 0;
 
     protected:
         IGraphics();
-    };
 
-    // Test function
-    ING_API void Test();
+    protected:
+        window_t m_window = NULL;
+        int m_windowWidth = 0;
+        int m_windowHeight = 0;
+    };
 }}

@@ -4,6 +4,7 @@
 #include "precomp.h"
 #include "GraphicsDX12.h"
 #include "AdapterDX12.h"
+#include "FrameDX12.h"
 
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3d12.lib")
@@ -18,9 +19,94 @@ GraphicsDX12::GraphicsDX12()
 
 GraphicsDX12::~GraphicsDX12()
 {
+    ReleaseWindowSizeDependentResources();
+    ReleaseDeviceResources();
+    ReleaseDeviceIndependentResources();
+
+    m_spCoreWindow.Reset();
 }
 
-result_code_t GraphicsDX12::Initialize()
+result_code_t GraphicsDX12::Initialize(window_t wnd)
+{
+    RECT rcClient;
+    m_window = wnd;
+    m_spCoreWindow.Reset();
+
+    GetClientRect(m_window, &rcClient);
+    m_windowWidth  = rcClient.right - rcClient.left;
+    m_windowHeight = rcClient.bottom - rcClient.top;
+
+    RETURN_IF_FAILED(CreateDeviceIndependentResources());
+
+    RETURN_IF_FAILED(CreateDeviceResources());
+
+    RETURN_IF_FAILED(CreateWindowSizeDependentResources(rcClient.right - rcClient.left, rcClient.bottom - rcClient.top));
+
+    return result_code_t::succeeded;
+}
+
+result_code_t GraphicsDX12::Initialize(core_window_t wnd)
+{
+    int width = 0;
+    int height = 0;
+    m_window = NULL;
+    m_spCoreWindow = wnd;
+
+    RETURN_IF_FAILED(CreateDeviceIndependentResources());
+
+    RETURN_IF_FAILED(CreateDeviceResources());
+
+    // ToDo: Calculate width and height from CoreWindow.
+    RETURN_IF_FAILED(CreateWindowSizeDependentResources(width, height));
+
+    return result_code_t::succeeded;
+}
+
+result_code_t GraphicsDX12::GetAdapterAt(const int index, IAdapter** ppAdapter)
+{
+    if (m_adapters.empty())
+    {
+        RETURN_IF_FAILED(GenerateAdapterList());
+    }
+
+    RETURN_IF_FALSE(index >= 0 && index < m_adapters.size(), result_code_t::out_of_bound);
+    RETURN_IF_FALSE(ppAdapter, result_code_t::invalid_pointer);
+
+    *ppAdapter = m_adapters[index].get();
+
+    return result_code_t::succeeded;
+}
+
+result_code_t GraphicsDX12::OnWindowSizeChanged(const int width, const int height)
+{
+    if (m_spD3DDevice == nullptr)
+    {
+        ING_DebugWrite(L"Warning: %S(%d) - D3D12 Device is not created yet. Ignore window size changed event.\n", __FUNCTION__, __LINE__);
+    }
+    else if (width != m_windowWidth || height != m_windowHeight)
+    {
+        RETURN_IF_FAILED(CreateWindowSizeDependentResources(width, height));
+    }
+
+    return result_code_t::succeeded;
+}
+
+result_code_t GraphicsDX12::GenerateAdapterList()
+{
+    ComPtr<IDXGIAdapter1> spAdapter;
+
+    RETURN_IF_FALSE(m_spDXGIFactory != nullptr, result_code_t::not_initialized);
+
+    for (UINT adapterIndex = 0; DXGI_ERROR_NOT_FOUND != m_spDXGIFactory->EnumAdapters1(adapterIndex, &spAdapter); adapterIndex++)
+    {
+        std::shared_ptr<IAdapter> adapter(new AdapterDX12(spAdapter.Get()));
+        m_adapters.push_back(adapter);
+    }
+
+    return result_code_t::succeeded;
+}
+
+result_code_t GraphicsDX12::CreateDeviceIndependentResources()
 {
     HRESULT hr = S_OK;
 
@@ -41,6 +127,20 @@ result_code_t GraphicsDX12::Initialize()
     // Generate Adapter List
     RETURN_IF_FAILED(GenerateAdapterList());
 
+Cleanup:
+    return HRESULT_TO_RESULT_CODE(hr);
+}
+
+void GraphicsDX12::ReleaseDeviceIndependentResources()
+{
+    m_spDXGIFactory.Reset();
+    m_adapters.clear();
+}
+
+result_code_t GraphicsDX12::CreateDeviceResources()
+{
+    HRESULT hr = S_OK;
+
     //
     // Create DX12 Device
     //
@@ -48,7 +148,7 @@ result_code_t GraphicsDX12::Initialize()
         AdapterDX12* pHwAdapter = nullptr;
 
         // Select HW adapter
-        for (auto adapter : m_adapters)
+        for (auto &adapter : m_adapters)
         {
             if (adapter->IsHardware())
             {
@@ -56,7 +156,7 @@ result_code_t GraphicsDX12::Initialize()
                 break;
             }
         }
-        RETURN_IF_FALSE(pHwAdapter, result_code_t::result_not_found);
+        RETURN_IF_FALSE(pHwAdapter, result_code_t::not_found);
 
         // Create the Direct3D 12 API device object
         hr = D3D12CreateDevice(
@@ -93,41 +193,56 @@ result_code_t GraphicsDX12::Initialize()
         GOTO_IF_HR_FAILED(m_spD3DDevice->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&m_spCommandQueue)), Cleanup);
     }
 
+    //
+    // Create Frames
+    //
+    for (auto &frame : m_frames)
+    {
+        frame.reset(new FrameDX12(m_spD3DDevice.Get()));
+    }
+
 Cleanup:
     return HRESULT_TO_RESULT_CODE(hr);
 }
 
-result_code_t GraphicsDX12::GetAdapterAt(const int index, Adapter** ppAdapter)
+void GraphicsDX12::ReleaseDeviceResources()
 {
-    result_code_t result = result_code_t::result_succeeded;
-
-    if (m_adapters.empty())
+    for (auto &frame : m_frames)
     {
-        RETURN_IF_FAILED(GenerateAdapterList());
+        frame.reset();
     }
 
-    RETURN_IF_FALSE(index >= 0 && index < m_adapters.size(), result_code_t::result_out_of_bound);
-    RETURN_IF_FALSE(ppAdapter, result_code_t::result_invalid_pointer);
-
-    *ppAdapter = m_adapters[index].get();
-
-    return result;
+    m_spCommandQueue.Reset();
+    m_spD3DDevice.Reset();
 }
 
-result_code_t GraphicsDX12::GenerateAdapterList()
+result_code_t GraphicsDX12::CreateWindowSizeDependentResources(const int width, const int height)
 {
-    ComPtr<IDXGIAdapter1> spAdapter;
+    HRESULT hr = S_OK;
+    m_windowWidth = width;
+    m_windowHeight = height;
 
-    RETURN_IF_FALSE(m_spDXGIFactory.Get(), result_code_t::result_not_initialized);
-
-    for (UINT adapterIndex = 0; DXGI_ERROR_NOT_FOUND != m_spDXGIFactory->EnumAdapters1(adapterIndex, &spAdapter); adapterIndex++)
+    // Create Window size dependent resources.
+    if (m_spSwapChain)
     {
-        DXGI_ADAPTER_DESC1 desc;
-        spAdapter->GetDesc1(&desc);
+        // If swap chain is already exist, try to resize.
+    }
+    else
+    {
+        // Create swap chain
+    }
+    ING_DebugWrite(L"%S(%d) width = %d, height = %d\n", __FUNCTION__, __LINE__, width, height);
 
-        std::shared_ptr<Adapter> adapter(new AdapterDX12(spAdapter.Get()));
-        m_adapters.push_back(adapter);
+    // Update frames
+    for (auto &frame : m_frames)
+    {
+        RETURN_IF_FAILED(frame->OnSizeChanged(width, height));
     }
 
-    return result_code_t::result_succeeded;
+Cleanup:
+    return HRESULT_TO_RESULT_CODE(hr);
+}
+
+void GraphicsDX12::ReleaseWindowSizeDependentResources()
+{
 }

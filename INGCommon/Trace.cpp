@@ -33,41 +33,41 @@ void ING_DebugWrite(const wchar_t* msg, ...)
 // Utility function only used by Win32
 ING::result_code_t ING::HRESULT_TO_RESULT_CODE(const HRESULT hr)
 {
-	result_code_t result = result_code_t::result_failed;    // Generic failure
+	result_code_t result = result_code_t::failed;    // Generic failure
 
 	switch (hr)
 	{
 	case S_OK:
 	case S_FALSE:
-		result = result_code_t::result_succeeded;
+		result = result_code_t::succeeded;
 		break;
     case E_FAIL:
-        result = result_code_t::result_failed;
+        result = result_code_t::failed;
         break;
 	case E_OUTOFMEMORY:
-		result = result_code_t::result_out_of_memory;
+		result = result_code_t::out_of_memory;
 		break;
 	case E_INVALIDARG:
-		result = result_code_t::result_invalid_parameter;
+		result = result_code_t::invalid_parameter;
 		break;
 	case E_POINTER:
-		result = result_code_t::result_invalid_pointer;
+		result = result_code_t::invalid_pointer;
 		break;
 	case HRESULT_FROM_WIN32(ERROR_NOT_FOUND):
-		result = result_code_t::result_not_found;
+		result = result_code_t::not_found;
 		break;
 	case E_NOTIMPL:
-		result = result_code_t::result_not_implemented;
+		result = result_code_t::not_implemented;
 		break;
     case E_NOT_VALID_STATE:
-        result = result_code_t::result_not_initialized;
+        result = result_code_t::not_initialized;
         break;
     case E_BOUNDS:
-        result = result_code_t::result_out_of_bound;
+        result = result_code_t::out_of_bound;
         break;
 	case DXGI_ERROR_DEVICE_REMOVED:
 	case DXGI_ERROR_DEVICE_RESET:
-		result = result_code_t::result_rendering_device_removed;
+		result = result_code_t::rendering_device_removed;
 		break;
 	default:
 		break;

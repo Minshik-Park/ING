@@ -10,25 +10,25 @@ namespace ING
     {
         switch (result)
         {
-        case result_code_t::result_succeeded:
+        case result_code_t::succeeded:
             return "Succeeded";
-        case result_code_t::result_failed:
+        case result_code_t::failed:
             return "Generic Failure";
-        case result_code_t::result_invalid_parameter:
+        case result_code_t::invalid_parameter:
             return "Invalid Parameter";
-        case result_code_t::result_invalid_pointer:
+        case result_code_t::invalid_pointer:
             return "Invalid Pointer operation";
-        case result_code_t::result_not_found:
+        case result_code_t::not_found:
             return "Not Found";
-        case result_code_t::result_not_implemented:
+        case result_code_t::not_implemented:
             return "Not implemented";
-        case result_code_t::result_not_initialized:
+        case result_code_t::not_initialized:
             return "Not initialized";
-        case result_code_t::result_out_of_memory:
+        case result_code_t::out_of_memory:
             return "Out of Memory";
-        case result_code_t::result_out_of_bound:
+        case result_code_t::out_of_bound:
             return "Not in valid range of data";
-        case result_code_t::result_rendering_device_removed:
+        case result_code_t::rendering_device_removed:
             return "Rendering device has been removed";
         default:
             break;

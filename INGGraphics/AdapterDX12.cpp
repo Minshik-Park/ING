@@ -16,7 +16,7 @@ AdapterDX12::AdapterDX12(IDXGIAdapter1* pAdapter)
     }
     else
     {
-        throw new Exception(result_code_t::result_invalid_parameter, __FUNCTION__, __LINE__);
+        throw Exception(result_code_t::invalid_parameter, __FUNCTION__, __LINE__);
     }
 }
 

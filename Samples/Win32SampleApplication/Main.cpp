@@ -51,8 +51,6 @@ int APIENTRY wWinMain(
 	appWindow->SetForeground();
 	appWindow->SetFocus();
 
-    ING::Graphics::Test();
-
 	// Run main message loop.
 	GOTO_IF_HR_FAILED(appWindow->Run(true, LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WIN32SAMPLEAPPLICATION))), Cleanup);
 
