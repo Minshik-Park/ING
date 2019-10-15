@@ -13,5 +13,6 @@
 
 #ifdef _WIN32
 // Windows specific configurations
+#define USE_DX_MATH
 #else
 #endif

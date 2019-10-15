@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------
 // Trace.cpp : Implements the Debugging trace utilities.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
+#include "../precomp.h"
 #include <Common.h>
 #include <stdio.h>
 #include <stdlib.h>

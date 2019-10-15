@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
 // Graphics.cpp : Implements the ING Graphics interface class.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
-#include <IGraphics.h>
+#include "../precomp.h"
+#include "IGraphics.h"
 #include "GraphicsDX12.h"
 #include <Exception.h>
 

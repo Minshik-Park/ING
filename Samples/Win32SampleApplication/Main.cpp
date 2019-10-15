@@ -6,8 +6,6 @@
 #include "Win32SampleApplication.h"
 #include <memory>
 
-#include <IGraphics.h>
-
 #define MAX_LOADSTRING 100
 
 int APIENTRY wWinMain(

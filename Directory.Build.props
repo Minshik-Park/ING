@@ -9,17 +9,13 @@ Defines commonly used directory paths and build properties
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <INGRoot>$(MSBuildThisFileDirectory)</INGRoot>
-    <INGCommonRoot>$(INGRoot)INGCommon\</INGCommonRoot>
     <INGEngineRoot>$(INGRoot)INGEngine\</INGEngineRoot>
-    <INGGraphicsRoot>$(INGRoot)INGGraphics\</INGGraphicsRoot>
     <INGAssetRoot>$(INGRoot)Assets\</INGAssetRoot>
     <INGAppFrameworkRoot>$(INGRoot)AppFramework\</INGAppFrameworkRoot>
     <INGSamplesRoot>$(INGRoot)Samples\</INGSamplesRoot>
 
-    <INGCommonInclude>$(INGCommonRoot)Include\</INGCommonInclude>
-    <INGGraphicsInclude>$(INGGraphicsRoot)Include\</INGGraphicsInclude>
     <INGEngineInclude>$(INGEngineRoot)Include\</INGEngineInclude>
-    <INGIncludes>$(INGCommonInclude);$(INGGraphicsInclude);$(INGEngineInclude)</INGIncludes>
+    <INGIncludes>$(INGEngineInclude)</INGIncludes>
 
     <INGBuildOutput>$(INGRoot)INGBuild\</INGBuildOutput>
     <INGLibraries>$(INGBuildOutput)$(Platform)\$(Configuration)\Libraries\</INGLibraries>

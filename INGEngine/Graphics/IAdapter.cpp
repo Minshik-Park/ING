@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
-// IFrame.cpp : Implementation the ING Graphics frame interface class.
+// Adapter.cpp : Implements the ING Adapter interface class.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
-#include <IFrame.h>
+#include "../precomp.h"
+#include "IAdapter.h"
 
 using namespace ING;
 using namespace ING::Graphics;
@@ -10,13 +10,13 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IFrame::IFrame()
+IAdapter::IAdapter()
 {
 }
 
 ///
 /// Default Destructor.
 ///
-IFrame::~IFrame()
+IAdapter::~IAdapter()
 {
 }

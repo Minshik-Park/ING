@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------
 // Exception.cpp : Implementation of ING Exception classes.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
+#include "..\precomp.h"
 #include <Exception.h>
 
 namespace ING

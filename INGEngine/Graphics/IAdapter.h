@@ -7,7 +7,7 @@
 namespace ING {
 namespace Graphics {
 
-    class ING_API IAdapter
+    class IAdapter
     {
     public:
         IAdapter();

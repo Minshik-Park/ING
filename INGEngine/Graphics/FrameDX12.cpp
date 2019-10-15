@@ -1,12 +1,13 @@
 //----------------------------------------------------------------------------------
 // FrameDX12.cpp : Implementation the ING Graphics frame for DX12 class.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
+#include "../precomp.h"
 #include "FrameDX12.h"
 #include <Exception.h>
 
 using namespace ING;
 using namespace ING::Graphics;
+using namespace Microsoft::WRL;
 
 ///
 /// Default Constructor.
@@ -32,12 +33,13 @@ result_code_t FrameDX12::Initialize()
     D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
     D3D12_DESCRIPTOR_HEAP_DESC dsvHeapDesc = {};
 
-    // Create descriptor heaps for render target views and depth stencil views.
+    // Create descriptor heaps for render target views.
     rtvHeapDesc.NumDescriptors = 1;
     rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
     rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
     GOTO_IF_HR_FAILED(m_spD3DDevice->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&m_spRTVHeap)), Cleanup);
 
+    // Create descriptor heaps for depth stencil views.
     dsvHeapDesc.NumDescriptors = 1;
     dsvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
     dsvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
@@ -46,9 +48,29 @@ result_code_t FrameDX12::Initialize()
     // Create Command allocator
     GOTO_IF_HR_FAILED(m_spD3DDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(m_spCommandAllocator.ReleaseAndGetAddressOf())), Cleanup);
 
+    // Create a command list.
+    GOTO_IF_HR_FAILED(m_spD3DDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_spCommandAllocator.Get(), nullptr, IID_PPV_ARGS(&m_spCommandList)), Cleanup);
+ 
 Cleanup:
     return HRESULT_TO_RESULT_CODE(hr);
 }
+
+///
+///
+///
+result_code_t FrameDX12::Render()
+{
+    HRESULT hr = S_OK;
+    
+    GOTO_IF_HR_FAILED(m_spCommandAllocator->Reset(), Cleanup);
+    // GOTO_IF_HR_FAILED(m_spCommandList->Reset(m_spCommandAllocator.Get(), ), Cleanup);
+    
+    GOTO_IF_HR_FAILED(m_spCommandList->Close(), Cleanup);
+    
+Cleanup:
+    return HRESULT_TO_RESULT_CODE(hr);
+}
+
 
 ///
 ///
@@ -58,11 +80,11 @@ result_code_t FrameDX12::OnSizeChanged(const int width, const int height)
     HRESULT hr = S_OK;
 
     D3D12_HEAP_PROPERTIES depthHeapProperties = {};
-    D3D12_RESOURCE_DESC depthResourceDesc = {}; // CD3DX12_RESOURCE_DESC::Tex2D(m_depthBufferFormat, backBufferWidth, backBufferHeight, 1, 1);
-    D3D12_CLEAR_VALUE depthOptimizedClearValue = {}; // (m_depthBufferFormat, 1.0f, 0);
+    D3D12_RESOURCE_DESC depthResourceDesc = {};
+    D3D12_CLEAR_VALUE depthOptimizedClearValue = {};
     D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
 
-    // Create Depth Stensil buffer and view
+    // Create Depth Stensil buffer.
     depthHeapProperties.Type = D3D12_HEAP_TYPE_DEFAULT;
     depthHeapProperties.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
     depthHeapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
@@ -98,7 +120,8 @@ result_code_t FrameDX12::OnSizeChanged(const int width, const int height)
     dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
     dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
 
-    m_spD3DDevice->CreateDepthStencilView(m_spDepthStencilBuffer.Get(), &dsvDesc, m_spDSVHeap->GetCPUDescriptorHandleForHeapStart());
+    // Create Depth Stensil view.
+    m_spD3DDevice->CreateDepthStencilView(m_spDepthStencilBuffer.Get(), &dsvDesc, GetDepthStencilView());
 
     // Set the 3D rendering viewport to target the entire window.
     m_screenViewport = { 0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, 1.0f };

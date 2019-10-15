@@ -29,5 +29,18 @@ namespace ING
 #else
     // ToDo: Define other platform dependent types
 #endif
+
+    namespace Graphics
+    {
+        ///
+        /// Type of Graphics implementation
+        ///
+        enum class GraphicsType
+        {
+            Unknown = 0,
+            DX12
+        };
+
+    }
 }
 

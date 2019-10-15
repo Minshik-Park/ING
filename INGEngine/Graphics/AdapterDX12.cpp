@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------
 // AdapterDX12.cpp : Implements the ING Adapter for DX12 class.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
+#include "../precomp.h"
 #include "AdapterDX12.h"
 #include <Exception.h>
 

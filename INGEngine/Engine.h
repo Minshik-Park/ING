@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------------
 #pragma once
 #include <IEngine.h>
-#include <IGraphics.h>
+#include "Graphics/IGraphics.h"
 #include <memory>
 
 namespace ING
@@ -16,6 +16,9 @@ namespace ING
 
         // Public methods
         virtual result_code_t Initialize() override;
+
+        virtual result_code_t Update() override;
+        virtual result_code_t Render() override;
 
         virtual void PauseRendering() override;
         virtual void ResumeRendering() override;

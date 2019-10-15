@@ -2,8 +2,9 @@
 // GraphicsDX12.h : Definition of ING Graphics for DX12 class.
 //----------------------------------------------------------------------------------
 #pragma once
-#include <IGraphics.h>
+#include "IGraphics.h"
 #include "FrameDX12.h"
+#include "StateDX12.h"
 #include <wrl.h>
 #include <dxgi1_4.h>
 #include <d3d12.h>
@@ -28,6 +29,10 @@ namespace Graphics {
 
         virtual void PauseRendering() override;
         virtual void ResumeRendering() override;
+
+        virtual result_code_t Render() override;
+
+        virtual result_code_t Present() override;
 
         // System event handlers
         virtual result_code_t OnWindowSizeChanged(const int width, const int height) override;
@@ -78,6 +83,10 @@ namespace Graphics {
         // Fence
         Microsoft::WRL::ComPtr<ID3D12Fence>                 m_spFence;
         HANDLE                                              m_hFenceEvent = NULL;
+
+        // State
+        static const StateParameter                         m_stateParameters[];
+        std::vector<std::shared_ptr<StateDX12>>             m_states;
 
         // Settings
         DXGI_FORMAT                                         m_backBufferFormat = DXGI_FORMAT_UNKNOWN;

@@ -103,7 +103,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGCommon.lib;INGGraphics.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
@@ -122,7 +122,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGCommon.lib;INGGraphics.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGCommon.lib;INGGraphics.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
@@ -168,7 +168,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGCommon.lib;INGGraphics.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>INGAppFrameworkWin32.lib;INGEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>

@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------------
 #pragma once
 #include <Common.h>
-#include <IGraphics.h>
 
 namespace ING
 {
@@ -17,6 +16,9 @@ namespace ING
 
         // Public methods
         virtual result_code_t Initialize() = 0;
+
+        virtual result_code_t Update() = 0;
+        virtual result_code_t Render() = 0;
 
         virtual void PauseRendering() = 0;
         virtual void ResumeRendering() = 0;

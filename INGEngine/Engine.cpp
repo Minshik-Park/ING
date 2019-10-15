@@ -50,6 +50,16 @@ result_code_t Engine::Initialize()
     return result;
 }
 
+result_code_t Engine::Update()
+{
+    return result_code_t::succeeded;
+}
+
+result_code_t Engine::Render()
+{
+    return m_spGraphics->Render();
+}
+
 ///
 ///
 ///

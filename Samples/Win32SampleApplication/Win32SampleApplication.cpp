@@ -94,8 +94,19 @@ Cleanup:
 ///
 HRESULT Win32SampleApplication::DoRun()
 {
-	// ToDo: Add code to custom action for loop.
-	return S_OK;
+    ING::result_code_t result = ING::result_code_t::succeeded;
+
+    if (m_spEngine)
+    {
+        result = m_spEngine->Update();
+
+        if (result == ING::result_code_t::succeeded)
+        {
+            result = m_spEngine->Render();
+        }
+    }
+
+    return (result == ING::result_code_t::succeeded) ? S_OK : E_FAIL;
 }
 
 ///

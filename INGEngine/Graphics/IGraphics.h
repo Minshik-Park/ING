@@ -3,27 +3,18 @@
 //----------------------------------------------------------------------------------
 #pragma once
 #include <Common.h>
-#include <IAdapter.h>
-#include <IFrame.h>
+#include "IAdapter.h"
+#include "IFrame.h"
 
 namespace ING {
 namespace Graphics {
-
-    ///
-    /// Type of Graphics implementation
-    ///
-    enum class GraphicsType
-    {
-        Unknown = 0,
-        DX12
-    };
 
     static const UINT c_frameCount = 3; // Use triple buffering.
 
     ///
     /// Graphics class
     ///
-    class ING_API IGraphics
+    class IGraphics
     {
     public:
         virtual ~IGraphics();
@@ -40,6 +31,10 @@ namespace Graphics {
 
         virtual void PauseRendering() = 0;
         virtual void ResumeRendering() = 0;
+
+        virtual result_code_t Render() = 0;
+
+        virtual result_code_t Present() = 0;
 
         // System event handlers
         virtual result_code_t OnWindowSizeChanged(const int width, const int height) = 0;

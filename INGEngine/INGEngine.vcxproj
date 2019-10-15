@@ -102,7 +102,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGCommon.lib;INGGraphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(INGLibraries)$(TargetName).lib</ImportLibrary>
     </Link>
@@ -123,7 +123,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGCommon.lib;INGGraphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(INGLibraries)$(TargetName).lib</ImportLibrary>
     </Link>
@@ -148,7 +148,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGCommon.lib;INGGraphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(INGLibraries)$(TargetName).lib</ImportLibrary>
     </Link>
@@ -173,19 +173,48 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(INGLibraries);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>INGCommon.lib;INGGraphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(INGSymbols)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(INGLibraries)$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Exception.cpp" />
+    <ClCompile Include="Common\Trace.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Graphics\AdapterDX12.cpp" />
+    <ClCompile Include="Graphics\FrameDX12.cpp" />
+    <ClCompile Include="Graphics\GraphicsDX12.cpp" />
+    <ClCompile Include="Graphics\IAdapter.cpp" />
+    <ClCompile Include="Graphics\IFrame.cpp" />
+    <ClCompile Include="Graphics\IGraphics.cpp" />
+    <ClCompile Include="Graphics\IShader.cpp" />
+    <ClCompile Include="Graphics\IState.cpp" />
+    <ClCompile Include="Graphics\ShaderHlsl.cpp" />
+    <ClCompile Include="Graphics\StateDX12.cpp" />
+    <ClCompile Include="Graphics\TestObject.cpp" />
     <ClCompile Include="IEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Graphics\AdapterDX12.h" />
+    <ClInclude Include="Graphics\FrameDX12.h" />
+    <ClInclude Include="Graphics\GraphicsDX12.h" />
+    <ClInclude Include="Graphics\IAdapter.h" />
+    <ClInclude Include="Graphics\IFrame.h" />
+    <ClInclude Include="Graphics\IGraphics.h" />
+    <ClInclude Include="Graphics\IShader.h" />
+    <ClInclude Include="Graphics\IState.h" />
+    <ClInclude Include="Graphics\ShaderHlsl.h" />
+    <ClInclude Include="Graphics\StateDX12.h" />
+    <ClInclude Include="Graphics\TestObject.h" />
+    <ClInclude Include="Include\Common.h" />
+    <ClInclude Include="Include\Configuration.h" />
+    <ClInclude Include="Include\Exception.h" />
     <ClInclude Include="Include\IEngine.h" />
+    <ClInclude Include="Include\Trace.h" />
+    <ClInclude Include="Include\Types.h" />
     <ClInclude Include="precomp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

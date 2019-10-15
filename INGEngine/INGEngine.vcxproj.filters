@@ -1,39 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Export">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{9f158c43-6b28-4fe7-a274-9102217a73f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{3cda2330-dce0-425a-a9e8-74b9a7db5e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{0eb99d33-6e72-4ce5-bae5-36148fedc20b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="IEngine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Exception.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Trace.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\AdapterDX12.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\FrameDX12.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GraphicsDX12.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IAdapter.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IFrame.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IGraphics.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IShader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IState.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ShaderHlsl.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\StateDX12.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TestObject.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="precomp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\IEngine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Export</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="precomp.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Common.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Configuration.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Exception.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Trace.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Types.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\AdapterDX12.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\FrameDX12.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GraphicsDX12.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IAdapter.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IFrame.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IState.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ShaderHlsl.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\StateDX12.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TestObject.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IGraphics.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

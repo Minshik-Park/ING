@@ -2,7 +2,7 @@
 // AdapterDX12.h : Definition the ING Adapter for DX12 class.
 //----------------------------------------------------------------------------------
 #pragma once
-#include <IAdapter.h>
+#include "IAdapter.h"
 #include <wrl.h>
 #include <dxgi1_4.h>
 #include <string>

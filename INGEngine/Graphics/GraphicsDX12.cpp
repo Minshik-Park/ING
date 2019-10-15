@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------
 // GraphicsDX12.cpp : Implementation of ING Graphics for DX12 class.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
+#include "../precomp.h"
 #include "GraphicsDX12.h"
 #include "AdapterDX12.h"
 #include <Exception.h>
@@ -12,6 +12,10 @@
 using namespace ING;
 using namespace ING::Graphics;
 using namespace Microsoft::WRL;
+
+const StateParameter GraphicsDX12::m_stateParameters[] = {
+    { L"SampleState", L"SamplePixelShader", L"SampleVertexShader", L"", L"", L"", DXGI_FORMAT_B8G8R8A8_UNORM, DXGI_FORMAT_D32_FLOAT },
+};
 
 ///
 /// Default Constructor.
@@ -114,6 +118,42 @@ void GraphicsDX12::ResumeRendering()
 {
     m_pause = false;
     ING_DebugWrite(L"Info: Rendering Resumed\n");
+}
+
+///
+///
+///
+result_code_t GraphicsDX12::Render()
+{
+    if (!m_pause)
+    {
+        RETURN_IF_FAILED(CurrentFrameDX12()->Render());
+
+        //m_spCommandQueue->ExecuteCommandLists(g)
+
+        RETURN_IF_FAILED(Present());
+    }
+
+    return result_code_t::succeeded;
+}
+
+///
+///
+///
+result_code_t GraphicsDX12::Present()
+{
+    HRESULT hr = S_OK;
+
+    // The first argument instructs DXGI to block until VSync, putting the application
+    // to sleep until the next VSync. This ensures we don't waste any cycles rendering
+    // frames that will never be displayed to the screen.
+    GOTO_IF_HR_FAILED(m_spSwapChain->Present(1, 0), Cleanup);
+
+    // Move to next frame.
+    MoveToNextFrame();
+
+Cleanup:
+    return HRESULT_TO_RESULT_CODE(hr);
 }
 
 ///
@@ -329,6 +369,20 @@ result_code_t GraphicsDX12::CreateDeviceResources()
         GOTO_IF_FALSE_HR(m_hFenceEvent != NULL, HRESULT_FROM_WIN32(GetLastError()), Cleanup);
     }
 
+    ///
+    /// Create State.
+    ///
+    {
+        for (auto& stateParam : m_stateParameters)
+        {
+            auto state = new StateDX12(m_spD3DDevice.Get());
+
+            RETURN_IF_FAILED(state->Initialize(&stateParam));
+
+            m_states.emplace_back(state);
+        }
+
+    }
 Cleanup:
     return HRESULT_TO_RESULT_CODE(hr);
 }
@@ -342,6 +396,8 @@ void GraphicsDX12::ReleaseDeviceResources()
     {
         frame.reset();
     }
+
+    m_states.clear();
 
     if (m_hFenceEvent)
     {

@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
-// Adapter.cpp : Implements the ING Adapter interface class.
+// IShader.cpp : Implementation of ING Graphics shader interface.
 //----------------------------------------------------------------------------------
-#include "precomp.h"
-#include <IAdapter.h>
+#include "../precomp.h"
+#include "IShader.h"
 
 using namespace ING;
 using namespace ING::Graphics;
@@ -10,13 +10,14 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IAdapter::IAdapter()
+IShader::IShader(shader_type_t type) :
+    m_type(type)
 {
 }
 
 ///
 /// Default Destructor.
 ///
-IAdapter::~IAdapter()
+IShader::~IShader()
 {
 }
