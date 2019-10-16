@@ -35,12 +35,11 @@ namespace ING
         ///
         /// Type of Graphics implementation
         ///
-        enum class GraphicsType
+        enum class graphics_type_t
         {
             Unknown = 0,
             DX12
         };
-
     }
 }
 

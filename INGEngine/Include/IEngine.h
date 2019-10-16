@@ -12,7 +12,7 @@ namespace ING
         virtual ~IEngine();
 
         // Factory static methods
-        static IEngine* Create(window_t wnd, Graphics::GraphicsType graphicsType);
+        static IEngine* Create(window_t wnd, Graphics::graphics_type_t graphicsType);
 
         // Public methods
         virtual result_code_t Initialize() = 0;

@@ -34,7 +34,7 @@ HRESULT Win32SampleApplication::Create(LPWSTR szTitle, int width, int height, bo
     // Create ING Engine
     try
     {
-        m_spEngine.reset(ING::IEngine::Create(m_hWnd, ING::Graphics::GraphicsType::DX12));
+        m_spEngine.reset(ING::IEngine::Create(m_hWnd, ING::Graphics::graphics_type_t::DX12));
 
         ING::result_code_t result = m_spEngine->Initialize();
         if (result != ING::result_code_t::succeeded)

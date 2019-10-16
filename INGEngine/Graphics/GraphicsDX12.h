@@ -4,13 +4,14 @@
 #pragma once
 #include "IGraphics.h"
 #include "FrameDX12.h"
-#include "StateDX12.h"
+#include "StateDX12Sample.h"
 #include <wrl.h>
 #include <dxgi1_4.h>
 #include <d3d12.h>
 #include <memory>
 #include <vector>
 #include <array>
+#include <map>
 
 namespace ING {
 namespace Graphics {
@@ -63,34 +64,33 @@ namespace Graphics {
         bool m_pause = false;
 
         // Core Window for store apps
-        Microsoft::WRL::ComPtr<IUnknown>                    m_spCoreWindow;
+        Microsoft::WRL::ComPtr<IUnknown>                        m_spCoreWindow;
 
         // DXGI Resources
-        Microsoft::WRL::ComPtr<IDXGIFactory4>               m_spDXGIFactory;
-        Microsoft::WRL::ComPtr<IDXGISwapChain3>             m_spSwapChain;
+        Microsoft::WRL::ComPtr<IDXGIFactory4>                   m_spDXGIFactory;
+        Microsoft::WRL::ComPtr<IDXGISwapChain3>                 m_spSwapChain;
 
         // D3D12 Resources
-        Microsoft::WRL::ComPtr<ID3D12Device>                m_spD3DDevice;
-        Microsoft::WRL::ComPtr<ID3D12CommandQueue>          m_spCommandQueue;
+        Microsoft::WRL::ComPtr<ID3D12Device>                    m_spD3DDevice;
+        Microsoft::WRL::ComPtr<ID3D12CommandQueue>              m_spCommandQueue;
 
         // HW resources
-        std::vector<std::shared_ptr<IAdapter>>              m_adapters;
+        std::vector<std::shared_ptr<IAdapter>>                  m_adapters;
 
         // Frame resources
         unsigned int m_currentFrame = 0;
-        std::array<std::shared_ptr<IFrame>, c_frameCount>   m_frames;
+        std::array<std::shared_ptr<IFrame>, c_frameCount>       m_frames;
 
         // Fence
-        Microsoft::WRL::ComPtr<ID3D12Fence>                 m_spFence;
-        HANDLE                                              m_hFenceEvent = NULL;
+        Microsoft::WRL::ComPtr<ID3D12Fence>                     m_spFence;
+        HANDLE                                                  m_hFenceEvent = NULL;
 
-        // State
-        static const StateParameter                         m_stateParameters[];
-        std::vector<std::shared_ptr<StateDX12>>             m_states;
+        // State map
+        std::map<std::wstring, std::shared_ptr<StateDX12Base>>  m_stateMap;
 
         // Settings
-        DXGI_FORMAT                                         m_backBufferFormat = DXGI_FORMAT_UNKNOWN;
-        DXGI_FORMAT                                         m_depthBufferFormat = DXGI_FORMAT_UNKNOWN;
+        DXGI_FORMAT                                             m_backBufferFormat = DXGI_FORMAT_UNKNOWN;
+        DXGI_FORMAT                                             m_depthBufferFormat = DXGI_FORMAT_UNKNOWN;
     };
 
 }}

@@ -10,7 +10,8 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IState::IState()
+IState::IState(const wchar_t* pName) :
+    m_name(pName)
 {
 }
 

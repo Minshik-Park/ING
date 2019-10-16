@@ -12,7 +12,7 @@ namespace Graphics {
     class FrameDX12 : public IFrame
     {
     public:
-        FrameDX12(ID3D12Device *pD3DDevice);
+        FrameDX12(const int index, ID3D12Device *pD3DDevice);
         virtual ~FrameDX12();
 
         virtual result_code_t Initialize() override;
@@ -34,6 +34,10 @@ namespace Graphics {
         D3D12_CPU_DESCRIPTOR_HANDLE GetDepthStencilView() const
         {
             return m_spDSVHeap->GetCPUDescriptorHandleForHeapStart();
+        }
+        ID3D12GraphicsCommandList* GetCommandList() const
+        {
+            return m_spCommandList.Get();
         }
 
     private:

@@ -13,10 +13,6 @@ using namespace ING;
 using namespace ING::Graphics;
 using namespace Microsoft::WRL;
 
-const StateParameter GraphicsDX12::m_stateParameters[] = {
-    { L"SampleState", L"SamplePixelShader", L"SampleVertexShader", L"", L"", L"", DXGI_FORMAT_B8G8R8A8_UNORM, DXGI_FORMAT_D32_FLOAT },
-};
-
 ///
 /// Default Constructor.
 ///
@@ -129,7 +125,9 @@ result_code_t GraphicsDX12::Render()
     {
         RETURN_IF_FAILED(CurrentFrameDX12()->Render());
 
-        //m_spCommandQueue->ExecuteCommandLists(g)
+        ID3D12CommandList* ppCommandLists[] = { CurrentFrameDX12()->GetCommandList() };
+
+        m_spCommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 
         RETURN_IF_FAILED(Present());
     }
@@ -350,10 +348,11 @@ result_code_t GraphicsDX12::CreateDeviceResources()
     //
     // Create and initialize Frames.
     //
-    for (auto &frame : m_frames)
+    for (int i = 0; i < c_frameCount; i++)
     {
-        frame.reset(new FrameDX12(m_spD3DDevice.Get()));
-        RETURN_IF_FAILED(frame->Initialize());
+        m_frames[i].reset(new FrameDX12(i, m_spD3DDevice.Get()));
+
+        RETURN_IF_FAILED(m_frames[i]->Initialize());
     }
 
     //
@@ -370,19 +369,21 @@ result_code_t GraphicsDX12::CreateDeviceResources()
     }
 
     ///
-    /// Create State.
+    /// Create States.
     ///
     {
-        for (auto& stateParam : m_stateParameters)
-        {
-            auto state = new StateDX12(m_spD3DDevice.Get());
-
-            RETURN_IF_FAILED(state->Initialize(&stateParam));
-
-            m_states.emplace_back(state);
-        }
-
+        auto sampleState = new StateDX12Sample(L"SampleState", m_spD3DDevice.Get());
+        sampleState->SetRenderTargetFormat(1, m_backBufferFormat);
+        sampleState->SetDepthStencilFormat(m_depthBufferFormat);
+        m_stateMap[sampleState->Name()].reset(sampleState);
     }
+
+    // Initialize all the states in the map.
+    for (auto& state : m_stateMap)
+    {
+        RETURN_IF_FAILED(state.second->Initialize());
+    }
+
 Cleanup:
     return HRESULT_TO_RESULT_CODE(hr);
 }
@@ -397,7 +398,7 @@ void GraphicsDX12::ReleaseDeviceResources()
         frame.reset();
     }
 
-    m_states.clear();
+    m_stateMap.clear();
 
     if (m_hFenceEvent)
     {

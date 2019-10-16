@@ -10,7 +10,7 @@ namespace Graphics {
     class IFrame
     {
     public:
-        IFrame();
+        IFrame(const int index);
         virtual ~IFrame();
 
         virtual result_code_t Initialize() = 0;
@@ -18,6 +18,9 @@ namespace Graphics {
 
         virtual result_code_t OnSizeChanged(const int width, const int height) = 0;
         virtual void ReleaseSizeDependentResources() = 0;
+
+    protected:
+        int m_index = 0;
     };
 
 }}

@@ -11,7 +11,7 @@ using namespace ING::Graphics;
 ///
 ///
 ///
-Engine::Engine(window_t wnd, Graphics::GraphicsType type) :
+Engine::Engine(window_t wnd, Graphics::graphics_type_t type) :
     m_window(wnd),
     m_graphicsType(type)
 {

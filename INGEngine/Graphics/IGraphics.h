@@ -20,7 +20,7 @@ namespace Graphics {
         virtual ~IGraphics();
 
         // Factory
-        static IGraphics *Create(GraphicsType type);
+        static IGraphics *Create(graphics_type_t type);
 
         // Public methods
         virtual result_code_t Initialize(window_t wnd) = 0;

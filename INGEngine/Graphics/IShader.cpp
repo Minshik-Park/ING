@@ -10,8 +10,9 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IShader::IShader(shader_type_t type) :
-    m_type(type)
+IShader::IShader(shader_type_t type, const wchar_t* pName) :
+    IResource(resource_type_t::Shader, pName),
+    m_shaderType(type)
 {
 }
 

@@ -189,10 +189,12 @@
     <ClCompile Include="Graphics\IAdapter.cpp" />
     <ClCompile Include="Graphics\IFrame.cpp" />
     <ClCompile Include="Graphics\IGraphics.cpp" />
+    <ClCompile Include="Graphics\IResource.cpp" />
     <ClCompile Include="Graphics\IShader.cpp" />
     <ClCompile Include="Graphics\IState.cpp" />
     <ClCompile Include="Graphics\ShaderHlsl.cpp" />
-    <ClCompile Include="Graphics\StateDX12.cpp" />
+    <ClCompile Include="Graphics\StateDX12Base.cpp" />
+    <ClCompile Include="Graphics\StateDX12Sample.cpp" />
     <ClCompile Include="Graphics\TestObject.cpp" />
     <ClCompile Include="IEngine.cpp" />
   </ItemGroup>
@@ -207,15 +209,31 @@
     <ClInclude Include="Graphics\IShader.h" />
     <ClInclude Include="Graphics\IState.h" />
     <ClInclude Include="Graphics\ShaderHlsl.h" />
-    <ClInclude Include="Graphics\StateDX12.h" />
+    <ClInclude Include="Graphics\StateDX12Base.h" />
+    <ClInclude Include="Graphics\StateDX12Sample.h" />
     <ClInclude Include="Graphics\TestObject.h" />
     <ClInclude Include="Include\Common.h" />
     <ClInclude Include="Include\Configuration.h" />
     <ClInclude Include="Include\Exception.h" />
     <ClInclude Include="Include\IEngine.h" />
+    <ClInclude Include="Include\IResource.h" />
     <ClInclude Include="Include\Trace.h" />
     <ClInclude Include="Include\Types.h" />
     <ClInclude Include="precomp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shaders\SamplePixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Assets\Shaders\SampleVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

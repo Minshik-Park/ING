@@ -14,16 +14,10 @@ namespace Graphics {
     class ShaderHlsl : public IShader
     {
     public:
-        ShaderHlsl(shader_type_t type);
+        ShaderHlsl(shader_type_t type, const wchar_t* pName);
         virtual ~ShaderHlsl();
 
-        virtual result_code_t Load(const wchar_t* pName, const wchar_t* filename) override;
-        virtual const byte* Get(size_t* pSize) override;
-        virtual void Dispose() override;
-
-    private:
-        std::wstring m_name;
-        std::vector<byte> m_byteCode;
+        result_code_t LoadObject();
     };
 
 }}

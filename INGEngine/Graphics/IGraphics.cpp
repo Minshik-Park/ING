@@ -28,14 +28,14 @@ IGraphics::~IGraphics()
 ///
 /// Factory method to create graphics instance.
 ///
-IGraphics* IGraphics::Create(GraphicsType type)
+IGraphics* IGraphics::Create(graphics_type_t type)
 {
     IGraphics* pRet = nullptr;
 
     switch (type)
     {
 #ifdef _WIN32
-    case GraphicsType::DX12:
+    case graphics_type_t::DX12:
         pRet = new GraphicsDX12();
         break;
 #endif

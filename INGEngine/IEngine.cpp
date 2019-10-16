@@ -26,7 +26,7 @@ IEngine::~IEngine()
 ///
 /// Factory method to create Engine instance.
 ///
-IEngine* IEngine::Create(window_t wnd, GraphicsType type)
+IEngine* IEngine::Create(window_t wnd, graphics_type_t type)
 {
     THROW_IF_FALSE(wnd != NULL, result_code_t::invalid_parameter);
 

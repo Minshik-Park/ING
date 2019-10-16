@@ -11,7 +11,7 @@ namespace ING
     class Engine : public IEngine
     {
     public:
-        Engine(window_t wnd, Graphics::GraphicsType graphicsType);
+        Engine(window_t wnd, Graphics::graphics_type_t graphicsType);
         virtual ~Engine();
 
         // Public methods
@@ -28,7 +28,7 @@ namespace ING
 
     private:
         window_t m_window = NULL;
-        Graphics::GraphicsType m_graphicsType = Graphics::GraphicsType::Unknown;
+        Graphics::graphics_type_t m_graphicsType = Graphics::graphics_type_t::Unknown;
 
         std::shared_ptr<Graphics::IGraphics> m_spGraphics;
     };

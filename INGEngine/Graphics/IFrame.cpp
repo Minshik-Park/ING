@@ -10,7 +10,8 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IFrame::IFrame()
+IFrame::IFrame(const int index) :
+    m_index(index)
 {
 }
 

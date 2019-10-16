@@ -12,7 +12,8 @@ using namespace Microsoft::WRL;
 ///
 /// Default Constructor.
 ///
-FrameDX12::FrameDX12(ID3D12Device* pD3DDevice) :
+FrameDX12::FrameDX12(const int index, ID3D12Device* pD3DDevice) :
+    IFrame(index),
     m_spD3DDevice(pD3DDevice)
 {
 }
@@ -50,7 +51,10 @@ result_code_t FrameDX12::Initialize()
 
     // Create a command list.
     GOTO_IF_HR_FAILED(m_spD3DDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_spCommandAllocator.Get(), nullptr, IID_PPV_ARGS(&m_spCommandList)), Cleanup);
- 
+
+    // Command List initial state is opened. Close it and Reset before using it.
+    GOTO_IF_HR_FAILED(m_spCommandList->Close(), Cleanup);
+
 Cleanup:
     return HRESULT_TO_RESULT_CODE(hr);
 }
@@ -63,10 +67,31 @@ result_code_t FrameDX12::Render()
     HRESULT hr = S_OK;
     
     GOTO_IF_HR_FAILED(m_spCommandAllocator->Reset(), Cleanup);
-    // GOTO_IF_HR_FAILED(m_spCommandList->Reset(m_spCommandAllocator.Get(), ), Cleanup);
-    
+    GOTO_IF_HR_FAILED(m_spCommandList->Reset(m_spCommandAllocator.Get(), nullptr), Cleanup);
+
+    // Clear the render target.
+    {
+        D3D12_RESOURCE_BARRIER barrier = {};
+        barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+        barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+        barrier.Transition.pResource = m_spBackBuffer.Get();
+        barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
+        barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
+        barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+
+        m_spCommandList->ResourceBarrier(1, &barrier);
+
+        FLOAT clearColor[] = { 0.4f, 0.6f, 0.9f, 1.0f };
+
+        m_spCommandList->ClearRenderTargetView(GetRenderTargetView(), clearColor, 0, nullptr);
+
+        barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
+        barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
+        m_spCommandList->ResourceBarrier(1, &barrier);
+    }
+
     GOTO_IF_HR_FAILED(m_spCommandList->Close(), Cleanup);
-    
+
 Cleanup:
     return HRESULT_TO_RESULT_CODE(hr);
 }

@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------------
 #pragma once
 #include <Common.h>
+#include <IResource.h>
 
 namespace ING {
 namespace Graphics {
@@ -17,18 +18,14 @@ namespace Graphics {
         GeometryShader
     };
 
-    class IShader
+    class IShader : public IResource
     {
     public:
-        IShader(shader_type_t type);
+        IShader(shader_type_t type, const wchar_t* pName);
         virtual ~IShader();
 
-        virtual result_code_t Load(const wchar_t* pName, const wchar_t* filename) = 0;
-        virtual const byte* Get(size_t* pSize) = 0;
-        virtual void Dispose() = 0;
-
     protected:
-        shader_type_t m_type = shader_type_t::Unknown;
+        shader_type_t m_shaderType = shader_type_t::Unknown;
     };
 
 }}
