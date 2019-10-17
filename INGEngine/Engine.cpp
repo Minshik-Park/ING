@@ -15,6 +15,7 @@ Engine::Engine(window_t wnd, Graphics::graphics_type_t type) :
     m_window(wnd),
     m_graphicsType(type)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -22,6 +23,7 @@ Engine::Engine(window_t wnd, Graphics::graphics_type_t type) :
 ///
 Engine::~Engine()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///

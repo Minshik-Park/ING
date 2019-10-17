@@ -61,7 +61,7 @@ namespace Graphics {
 
     private:
         // Configurations
-        bool m_pause = false;
+        bool m_fRendering = false;
 
         // Core Window for store apps
         Microsoft::WRL::ComPtr<IUnknown>                        m_spCoreWindow;

@@ -16,6 +16,7 @@ FrameDX12::FrameDX12(const int index, ID3D12Device* pD3DDevice) :
     IFrame(index),
     m_spD3DDevice(pD3DDevice)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -23,6 +24,7 @@ FrameDX12::FrameDX12(const int index, ID3D12Device* pD3DDevice) :
 ///
 FrameDX12::~FrameDX12()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///

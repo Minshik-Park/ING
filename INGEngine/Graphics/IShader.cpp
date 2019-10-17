@@ -14,6 +14,7 @@ IShader::IShader(shader_type_t type, const wchar_t* pName) :
     IResource(resource_type_t::Shader, pName),
     m_shaderType(type)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -21,4 +22,5 @@ IShader::IShader(shader_type_t type, const wchar_t* pName) :
 ///
 IShader::~IShader()
 {
+    TraceScopeVoid(__FUNCTION__);
 }

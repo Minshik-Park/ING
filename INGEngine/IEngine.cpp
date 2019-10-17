@@ -14,6 +14,7 @@ using namespace ING::Graphics;
 ///
 IEngine::IEngine()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -21,6 +22,7 @@ IEngine::IEngine()
 ///
 IEngine::~IEngine()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///

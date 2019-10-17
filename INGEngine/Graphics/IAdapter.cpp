@@ -12,6 +12,7 @@ using namespace ING::Graphics;
 ///
 IAdapter::IAdapter()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -19,4 +20,5 @@ IAdapter::IAdapter()
 ///
 IAdapter::~IAdapter()
 {
+    TraceScopeVoid(__FUNCTION__);
 }

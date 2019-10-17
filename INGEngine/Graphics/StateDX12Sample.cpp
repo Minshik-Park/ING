@@ -15,6 +15,7 @@ using namespace Microsoft::WRL;
 StateDX12Sample::StateDX12Sample(const wchar_t* pName, ID3D12Device* pD3DDevice) :
     StateDX12Base(pName, pD3DDevice)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -22,6 +23,7 @@ StateDX12Sample::StateDX12Sample(const wchar_t* pName, ID3D12Device* pD3DDevice)
 ///
 StateDX12Sample::~StateDX12Sample()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///

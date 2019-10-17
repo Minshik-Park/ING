@@ -15,6 +15,7 @@ IResource::IResource(resource_type_t type, const wchar_t *pName) :
     m_resourceType(type),
     m_name(pName)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -22,6 +23,8 @@ IResource::IResource(resource_type_t type, const wchar_t *pName) :
 ///
 IResource::~IResource()
 {
+    TraceScopeVoid(__FUNCTION__);
+
     Dispose();
 }
 

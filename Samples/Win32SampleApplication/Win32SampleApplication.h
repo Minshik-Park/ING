@@ -25,6 +25,7 @@ public:
 private:
 	HRESULT OnCommand(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
     HRESULT OnSize(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+    HRESULT OnClose(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
     std::unique_ptr<ING::IEngine> m_spEngine;

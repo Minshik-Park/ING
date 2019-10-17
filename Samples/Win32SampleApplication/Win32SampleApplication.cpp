@@ -85,6 +85,13 @@ HRESULT Win32SampleApplication::PrepareMessageHandlers()
                                         std::bind(&Win32SampleApplication::OnSize,
 		                                this,
 		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+
+    // Register WM_CLOSE event handler to handle minimize and maximize events.
+	GOTO_IF_HR_FAILED(AddMessageHandler(WM_CLOSE,
+                                        std::bind(&Win32SampleApplication::OnClose,
+		                                this,
+		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+
 Cleanup:
 	return hr;
 }
@@ -188,6 +195,21 @@ HRESULT Win32SampleApplication::OnSize(HWND hWnd, UINT message, WPARAM wParam, L
             }
             break;
         }
+    }
+
+    return E_NOTIMPL;
+}
+
+///
+/// Windows close messages handler. Release resources properly.
+///
+HRESULT Win32SampleApplication::OnClose(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    if (m_spEngine)
+    {
+        m_spEngine.reset();
+
+        DestroyWindow(hWnd);
     }
 
     return E_NOTIMPL;

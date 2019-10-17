@@ -20,6 +20,7 @@ GraphicsDX12::GraphicsDX12(DXGI_FORMAT backBufferFormat, DXGI_FORMAT depthBuffer
     m_backBufferFormat(backBufferFormat),
     m_depthBufferFormat(depthBufferFormat)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -27,6 +28,8 @@ GraphicsDX12::GraphicsDX12(DXGI_FORMAT backBufferFormat, DXGI_FORMAT depthBuffer
 ///
 GraphicsDX12::~GraphicsDX12()
 {
+    TraceScopeVoid(__FUNCTION__);
+
     ReleaseWindowSizeDependentResources();
     ReleaseDeviceResources();
     ReleaseDeviceIndependentResources();
@@ -103,7 +106,7 @@ result_code_t GraphicsDX12::GetAdapterAt(const int index, IAdapter** ppAdapter)
 ///
 void GraphicsDX12::PauseRendering()
 {
-    m_pause = true;
+    m_fRendering = false;
     ING_DebugWrite(L"Info: Rendering Paused\n");
 }
 
@@ -112,7 +115,7 @@ void GraphicsDX12::PauseRendering()
 ///
 void GraphicsDX12::ResumeRendering()
 {
-    m_pause = false;
+    m_fRendering = true;
     ING_DebugWrite(L"Info: Rendering Resumed\n");
 }
 
@@ -121,7 +124,7 @@ void GraphicsDX12::ResumeRendering()
 ///
 result_code_t GraphicsDX12::Render()
 {
-    if (!m_pause)
+    if (m_fRendering)
     {
         RETURN_IF_FAILED(CurrentFrameDX12()->Render());
 
@@ -497,6 +500,9 @@ Cleanup:
 ///
 void GraphicsDX12::ReleaseWindowSizeDependentResources()
 {
+    // Wait until all previous GPU work is complete.
+    WaitForGPU();
+
     for (auto& frame : m_frames)
     {
         frame->ReleaseSizeDependentResources();

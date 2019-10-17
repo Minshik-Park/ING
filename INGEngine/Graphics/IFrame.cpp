@@ -13,6 +13,7 @@ using namespace ING::Graphics;
 IFrame::IFrame(const int index) :
     m_index(index)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -20,4 +21,5 @@ IFrame::IFrame(const int index) :
 ///
 IFrame::~IFrame()
 {
+    TraceScopeVoid(__FUNCTION__);
 }

@@ -13,6 +13,8 @@ using namespace ING::Graphics;
 ///
 AdapterDX12::AdapterDX12(IDXGIAdapter1* pAdapter)
 {
+    TraceScopeVoid(__FUNCTION__);
+
     if (pAdapter)
     {
         pAdapter->GetDesc1(&m_descriptor);
@@ -28,6 +30,7 @@ AdapterDX12::AdapterDX12(IDXGIAdapter1* pAdapter)
 ///
 AdapterDX12::~AdapterDX12()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///

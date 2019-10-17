@@ -14,6 +14,7 @@ using namespace ING::Graphics;
 ShaderHlsl::ShaderHlsl(shader_type_t type, const wchar_t* pName) :
     IShader(type, pName)
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
@@ -21,6 +22,7 @@ ShaderHlsl::ShaderHlsl(shader_type_t type, const wchar_t* pName) :
 ///
 ShaderHlsl::~ShaderHlsl()
 {
+    TraceScopeVoid(__FUNCTION__);
 }
 
 ///
