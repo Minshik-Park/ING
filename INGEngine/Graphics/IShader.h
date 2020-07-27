@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------------
 #pragma once
 #include <Common.h>
-#include <IResource.h>
+#include <IFileResource.h>
 
 namespace ING {
 namespace Graphics {
@@ -18,7 +18,7 @@ namespace Graphics {
         GeometryShader
     };
 
-    class IShader : public IResource
+    class IShader : public IFileResource
     {
     public:
         IShader(shader_type_t type, const wchar_t* pName);

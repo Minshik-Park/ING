@@ -7,6 +7,7 @@ namespace ING
 {
 	enum class result_code_t
 	{
+        unknown = -1,
 		succeeded = 0,
 		failed,
 		invalid_parameter,

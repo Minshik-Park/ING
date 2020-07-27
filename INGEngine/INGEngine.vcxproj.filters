@@ -72,13 +72,16 @@
     <ClCompile Include="Graphics\TestObject.cpp">
       <Filter>Test</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\IResource.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\StateDX12Base.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\StateDX12Sample.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IFileResource.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IGraphicResource.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,13 +140,16 @@
     <ClInclude Include="Graphics\IGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Include\IResource.h">
-      <Filter>Export</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\StateDX12Base.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\StateDX12Sample.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\IFileResource.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IGraphicResource.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

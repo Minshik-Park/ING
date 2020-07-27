@@ -15,7 +15,7 @@ Engine::Engine(window_t wnd, Graphics::graphics_type_t type) :
     m_window(wnd),
     m_graphicsType(type)
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -23,7 +23,7 @@ Engine::Engine(window_t wnd, Graphics::graphics_type_t type) :
 ///
 Engine::~Engine()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -38,12 +38,12 @@ result_code_t Engine::Initialize()
         m_spGraphics.reset(IGraphics::Create(m_graphicsType));
         RETURN_IF_FAILED(m_spGraphics->Initialize(m_window));
     }
-    catch (ExceptionHr hrEx)
+    catch (const ExceptionHr &hrEx)
     {
         ING_DebugWrite(L"hrException : %S\n", hrEx.what());
         result = hrEx.Result();
     }
-    catch (Exception ex)
+    catch (const Exception &ex)
     {
         ING_DebugWrite(L"Exception : %S\n", ex.what());
         result = ex.Result();
@@ -65,23 +65,27 @@ result_code_t Engine::Render()
 ///
 ///
 ///
-void Engine::PauseRendering()
+result_code_t Engine::OnSuspend()
 {
     if (m_spGraphics != nullptr)
     {
         m_spGraphics->PauseRendering();
     }
+
+    return result_code_t::succeeded;
 }
 
 ///
 ///
 ///
-void Engine::ResumeRendering()
+result_code_t Engine::OnResume()
 {
     if (m_spGraphics != nullptr)
     {
         m_spGraphics->ResumeRendering();
     }
+
+    return result_code_t::succeeded;
 }
 
 ///

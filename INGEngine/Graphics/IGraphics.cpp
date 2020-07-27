@@ -14,7 +14,7 @@ using namespace ING::Graphics;
 ///
 IGraphics::IGraphics()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -22,7 +22,7 @@ IGraphics::IGraphics()
 ///
 IGraphics::~IGraphics()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///

@@ -19,11 +19,11 @@ namespace Graphics {
         Geometry
     };
 
-    class IResource
+    class IFileResource
     {
     public:
-        IResource(resource_type_t type, const wchar_t *pName);
-        virtual ~IResource();
+        IFileResource(resource_type_t type, const wchar_t *pName);
+        virtual ~IFileResource();
 
         const std::wstring& Name() { return m_name; }
 

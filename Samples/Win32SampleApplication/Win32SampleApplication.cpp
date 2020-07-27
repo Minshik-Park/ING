@@ -36,6 +36,8 @@ HRESULT Win32SampleApplication::Create(LPWSTR szTitle, int width, int height, bo
     {
         m_spEngine.reset(ING::IEngine::Create(m_hWnd, ING::Graphics::graphics_type_t::DX12));
 
+        auto shEngine = ING::IEngine::CreateShared(m_hWnd, ING::Graphics::graphics_type_t::DX12);
+
         ING::result_code_t result = m_spEngine->Initialize();
         if (result != ING::result_code_t::succeeded)
         {
@@ -50,6 +52,10 @@ HRESULT Win32SampleApplication::Create(LPWSTR szTitle, int width, int height, bo
     {
         FatalAppExitA(0, ex.what());
     }
+    catch (std::exception ex)
+    {
+        FatalAppExitA(0, ex.what());
+    }
 
 Cleanup:
     return hr;
@@ -58,42 +64,37 @@ Cleanup:
 ///
 /// Register Windows Message handlers.
 ///
-HRESULT Win32SampleApplication::PrepareMessageHandlers()
+void Win32SampleApplication::PrepareMessageHandlers()
 {
-	HRESULT hr = S_OK;
-
 	// Register WM_COMMAND event handler.
-	GOTO_IF_HR_FAILED(AddMessageHandler(WM_COMMAND,
-                                        std::bind(&Win32SampleApplication::OnCommand,
-		                                this,
-		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+	AddMessageHandler(WM_COMMAND,
+                      std::bind(&Win32SampleApplication::OnCommand,
+                                this,
+                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 
 	// Register WM_ENTERSIZEMOVE event handler.
-	GOTO_IF_HR_FAILED(AddMessageHandler(WM_ENTERSIZEMOVE,
-                                        std::bind(&Win32SampleApplication::OnSize,
-		                                this,
-		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+	AddMessageHandler(WM_ENTERSIZEMOVE,
+                      std::bind(&Win32SampleApplication::OnSize,
+                                this,
+                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 
     // Register WM_EXITSIZEMOVE event handler.
-	GOTO_IF_HR_FAILED(AddMessageHandler(WM_EXITSIZEMOVE,
-                                        std::bind(&Win32SampleApplication::OnSize,
-		                                this,
-		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+	AddMessageHandler(WM_EXITSIZEMOVE,
+                      std::bind(&Win32SampleApplication::OnSize,
+                                this,
+                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 
     // Register WM_SIZE event handler to handle minimize and maximize events.
-	GOTO_IF_HR_FAILED(AddMessageHandler(WM_SIZE,
-                                        std::bind(&Win32SampleApplication::OnSize,
-		                                this,
-		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
+	AddMessageHandler(WM_SIZE,
+                      std::bind(&Win32SampleApplication::OnSize,
+                                this,
+                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 
     // Register WM_CLOSE event handler to handle minimize and maximize events.
-	GOTO_IF_HR_FAILED(AddMessageHandler(WM_CLOSE,
-                                        std::bind(&Win32SampleApplication::OnClose,
-		                                this,
-		                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)), Cleanup);
-
-Cleanup:
-	return hr;
+	AddMessageHandler(WM_CLOSE,
+                      std::bind(&Win32SampleApplication::OnClose,
+                                this,
+                                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 }
 
 ///
@@ -150,11 +151,11 @@ HRESULT Win32SampleApplication::OnSize(HWND hWnd, UINT message, WPARAM wParam, L
             case SIZE_MAXHIDE:
             case SIZE_MINIMIZED:
                 // Stop rendering
-                m_spEngine->PauseRendering();
+                m_spEngine->OnSuspend();
                 break;
             case SIZE_MAXSHOW:
                 // Restart rendering
-                m_spEngine->ResumeRendering();
+                m_spEngine->OnResume();
                 break;
             case SIZE_MAXIMIZED:
             case SIZE_RESTORED:
@@ -168,7 +169,7 @@ HRESULT Win32SampleApplication::OnSize(HWND hWnd, UINT message, WPARAM wParam, L
                     }
 
                     // Window is shown. Make sure it's rendering.
-                    m_spEngine->ResumeRendering();
+                    m_spEngine->OnResume();
                 }
 
                 return S_OK;

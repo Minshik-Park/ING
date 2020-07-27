@@ -75,10 +75,10 @@ namespace ING
 // Scope tracing Macros
 //----------------------------------------------------------------------------------
 #ifdef _DEBUG
-#define TraceScopeResult(f, pR) ING::ScopeTrace st(f, pR);
-#define TraceScopeVoid(f)       ING::ScopeTrace st(f);
+#define TraceScopeResult(pR) ING::ScopeTrace st(__FUNCTION__, pR);
+#define TraceScopeVoid()       ING::ScopeTrace st(__FUNCTION__);
 #ifdef _WIN32
-#define TraceScopeHR(f, pHr)    ING::ScopeTrace st(f, pHr);
+#define TraceScopeHR(pHr)    ING::ScopeTrace st(__FUNCTION__, pHr);
 #endif
 #else
 #define TraceScopeResult(f, pR)

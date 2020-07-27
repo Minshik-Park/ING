@@ -188,8 +188,9 @@
     <ClCompile Include="Graphics\GraphicsDX12.cpp" />
     <ClCompile Include="Graphics\IAdapter.cpp" />
     <ClCompile Include="Graphics\IFrame.cpp" />
+    <ClCompile Include="Graphics\IGraphicResource.cpp" />
     <ClCompile Include="Graphics\IGraphics.cpp" />
-    <ClCompile Include="Graphics\IResource.cpp" />
+    <ClCompile Include="Graphics\IFileResource.cpp" />
     <ClCompile Include="Graphics\IShader.cpp" />
     <ClCompile Include="Graphics\IState.cpp" />
     <ClCompile Include="Graphics\ShaderHlsl.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Graphics\GraphicsDX12.h" />
     <ClInclude Include="Graphics\IAdapter.h" />
     <ClInclude Include="Graphics\IFrame.h" />
+    <ClInclude Include="Graphics\IGraphicResource.h" />
     <ClInclude Include="Graphics\IGraphics.h" />
     <ClInclude Include="Graphics\IShader.h" />
     <ClInclude Include="Graphics\IState.h" />
@@ -216,7 +218,7 @@
     <ClInclude Include="Include\Configuration.h" />
     <ClInclude Include="Include\Exception.h" />
     <ClInclude Include="Include\IEngine.h" />
-    <ClInclude Include="Include\IResource.h" />
+    <ClInclude Include="Include\IFileResource.h" />
     <ClInclude Include="Include\Trace.h" />
     <ClInclude Include="Include\Types.h" />
     <ClInclude Include="precomp.h" />

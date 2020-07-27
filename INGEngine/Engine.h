@@ -20,11 +20,10 @@ namespace ING
         virtual result_code_t Update() override;
         virtual result_code_t Render() override;
 
-        virtual void PauseRendering() override;
-        virtual void ResumeRendering() override;
-
         // System event handlers
         virtual result_code_t OnWindowSizeChanged(const int width, const int height) override;
+        virtual result_code_t OnSuspend() override;
+        virtual result_code_t OnResume() override;
 
     private:
         window_t m_window = NULL;

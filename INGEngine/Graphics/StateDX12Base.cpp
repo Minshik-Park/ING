@@ -15,7 +15,7 @@ StateDX12Base::StateDX12Base(const wchar_t* pName, ID3D12Device* pD3DDevice) :
     IState(pName),
     m_spD3DDevice(pD3DDevice)
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -23,7 +23,7 @@ StateDX12Base::StateDX12Base(const wchar_t* pName, ID3D12Device* pD3DDevice) :
 ///
 StateDX12Base::~StateDX12Base()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 void StateDX12Base::SetRenderTargetFormat(const unsigned int numRenderTarget, DXGI_FORMAT format)

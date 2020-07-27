@@ -14,7 +14,7 @@ using namespace ING::Graphics;
 ///
 IEngine::IEngine()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -22,15 +22,22 @@ IEngine::IEngine()
 ///
 IEngine::~IEngine()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
 /// Factory method to create Engine instance.
 ///
-IEngine* IEngine::Create(window_t wnd, graphics_type_t type)
+IEngine* IEngine::Create(window_t wnd, graphics_type_t graphicsType)
 {
     THROW_IF_FALSE(wnd != NULL, result_code_t::invalid_parameter);
 
-    return new Engine(wnd, type);
+    return new Engine(wnd, graphicsType);
+}
+
+std::shared_ptr<IEngine> IEngine::CreateShared(window_t wnd, Graphics::graphics_type_t graphicsType)
+{
+    THROW_IF_FALSE(wnd != NULL, result_code_t::invalid_parameter);
+
+    return std::shared_ptr<IEngine>(new Engine(wnd, graphicsType), DestoryEngine);
 }

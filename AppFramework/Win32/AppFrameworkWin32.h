@@ -33,8 +33,8 @@ namespace Win32 {
 			HICON hIconSm,
 			HCURSOR hCursor,
 			HBRUSH hBackground);
+		virtual void PrepareMessageHandlers() = 0;
 		virtual HRESULT Create(LPWSTR szTitle, int width, int height, bool fullscreen);
-		virtual HRESULT PrepareMessageHandlers() = 0;
 		virtual HRESULT Run(bool fPeek, HACCEL hAccelTable);
 		virtual void Shutdown();
 
@@ -45,16 +45,16 @@ namespace Win32 {
 		void SetFocus();
 
 		// Window Properties
-		bool IsFullScreen() { return m_fullscreen; }
-		int Width() { return m_width; }
-		int Height() { return m_height; }
-		int ClientWidth() { return m_clientWidth; }
-		int ClientHeight() { return m_clientHeight; }
+		bool IsFullScreen() const { return m_fullscreen; }
+		int Width() const         { return m_width; }
+		int Height() const        { return m_height; }
+		int ClientWidth() const   { return m_clientWidth; }
+		int ClientHeight() const  { return m_clientHeight; }
 
 	protected:
 		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		virtual HRESULT DoRun() = 0;
-		virtual HRESULT AddMessageHandler(UINT message, WndCallbackFunc callback);
+		virtual void AddMessageHandler(UINT message, WndCallbackFunc callback);
 		virtual HRESULT HandleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	protected:

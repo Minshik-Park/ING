@@ -20,7 +20,7 @@ GraphicsDX12::GraphicsDX12(DXGI_FORMAT backBufferFormat, DXGI_FORMAT depthBuffer
     m_backBufferFormat(backBufferFormat),
     m_depthBufferFormat(depthBufferFormat)
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -28,7 +28,7 @@ GraphicsDX12::GraphicsDX12(DXGI_FORMAT backBufferFormat, DXGI_FORMAT depthBuffer
 ///
 GraphicsDX12::~GraphicsDX12()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 
     ReleaseWindowSizeDependentResources();
     ReleaseDeviceResources();
@@ -124,6 +124,7 @@ void GraphicsDX12::ResumeRendering()
 ///
 result_code_t GraphicsDX12::Render()
 {
+    TraceScopeVoid();
     if (m_fRendering)
     {
         RETURN_IF_FAILED(CurrentFrameDX12()->Render());

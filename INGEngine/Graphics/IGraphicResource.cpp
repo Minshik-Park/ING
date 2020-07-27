@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
-// IFrame.cpp : Implementation the ING Graphics frame interface class.
+// IGraphicResource.cpp : Implementation of the ING Graphic resource interface class.
 //----------------------------------------------------------------------------------
 #include "../precomp.h"
-#include "IFrame.h"
+#include "IGraphicResource.h"
 
 using namespace ING;
 using namespace ING::Graphics;
@@ -10,8 +10,7 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IFrame::IFrame(const int index) :
-    m_index(index)
+IGraphicResource::IGraphicResource()
 {
     TraceScopeVoid();
 }
@@ -19,7 +18,7 @@ IFrame::IFrame(const int index) :
 ///
 /// Default Destructor.
 ///
-IFrame::~IFrame()
+IGraphicResource::~IGraphicResource()
 {
     TraceScopeVoid();
 }

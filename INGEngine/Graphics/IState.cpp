@@ -13,7 +13,7 @@ using namespace ING::Graphics;
 IState::IState(const wchar_t* pName) :
     m_name(pName)
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
@@ -21,5 +21,5 @@ IState::IState(const wchar_t* pName) :
 ///
 IState::~IState()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }

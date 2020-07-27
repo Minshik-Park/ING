@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------------
-// IResource.cpp : Implementation of ING Graphics resource interface.
+// IFileResource.cpp : Implementation of ING Graphics file resource interface.
 //----------------------------------------------------------------------------------
 #include "../precomp.h"
-#include <IResource.h>
+#include <IFileResource.h>
 #include <fstream>
 
 using namespace ING;
@@ -11,19 +11,19 @@ using namespace ING::Graphics;
 ///
 /// Default Constructor.
 ///
-IResource::IResource(resource_type_t type, const wchar_t *pName) :
+IFileResource::IFileResource(resource_type_t type, const wchar_t *pName) :
     m_resourceType(type),
     m_name(pName)
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 }
 
 ///
 /// Default Destructor.
 ///
-IResource::~IResource()
+IFileResource::~IFileResource()
 {
-    TraceScopeVoid(__FUNCTION__);
+    TraceScopeVoid();
 
     Dispose();
 }
@@ -31,7 +31,7 @@ IResource::~IResource()
 ///
 /// Load resource from file to memory.
 ///
-result_code_t IResource::Load(const wchar_t* filename)
+result_code_t IFileResource::Load(const wchar_t* filename)
 {
     result_code_t result = result_code_t::succeeded;
 
@@ -67,7 +67,7 @@ Cleanup:
 ///
 /// Get raw byte code with size.
 ///
-const byte* IResource::GetRaw(size_t* pSize)
+const byte* IFileResource::GetRaw(size_t* pSize)
 {
     byte* pRet = nullptr;
 
@@ -87,7 +87,7 @@ const byte* IResource::GetRaw(size_t* pSize)
 ///
 /// Dispose memory loaded data.
 ///
-void IResource::Dispose()
+void IFileResource::Dispose()
 {
     m_byteCode.clear();
 }

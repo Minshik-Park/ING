@@ -18,8 +18,8 @@ int APIENTRY wWinMain(
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
-	WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+	WCHAR szTitle[MAX_LOADSTRING];          // The title bar text
+	WCHAR szWindowClass[MAX_LOADSTRING];	// the main window class name
 
 	// Initialize global strings
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -39,7 +39,7 @@ int APIENTRY wWinMain(
 			(HBRUSH)(COLOR_WINDOW + 1)), Cleanup);
 
 	// Register Windows message handlers
-	GOTO_IF_HR_FAILED(appWindow->PrepareMessageHandlers(), Cleanup);
+	appWindow->PrepareMessageHandlers();
 
 	// Create Window
 	GOTO_IF_HR_FAILED(appWindow->Create(szTitle, 800, 600, false), Cleanup);

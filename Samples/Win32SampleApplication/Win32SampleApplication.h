@@ -17,9 +17,8 @@ public:
 	Win32SampleApplication(HINSTANCE hInstance);
 	virtual ~Win32SampleApplication();
 
+    virtual void PrepareMessageHandlers() override;
     virtual HRESULT Create(LPWSTR szTitle, int width, int height, bool fullscreen) override;
-
-	virtual HRESULT PrepareMessageHandlers() override;
 	virtual HRESULT DoRun() override;
 
 private:

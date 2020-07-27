@@ -9,33 +9,34 @@
 
 namespace ING
 {
+    // Utility function to convert result code into string.
     ING_API const char* ResultCodeToString(result_code_t result);
 
     class Exception : public std::exception
     {
     public:
-        Exception(result_code_t result) :
-            std::exception(ResultCodeToString(result)),
+        Exception(result_code_t result) noexcept :
+            m_what(ResultCodeToString(result)),
             m_result(result)
         {
         }
 
-        Exception(result_code_t result, const char* pMessage) :
-            std::exception(pMessage),
+        Exception(result_code_t result, const char* pMessage) noexcept :
+            m_what(pMessage),
             m_result(result)
         {
         }
 
-        Exception(result_code_t result, const char* pszFunction, const int line) :
-            std::exception(ResultCodeToString(result)),
+        Exception(result_code_t result, const char* pszFunction, const int line) noexcept :
+            m_what(ResultCodeToString(result)),
             m_result(result),
             m_function(pszFunction),
             m_line(line)
         {
         }
 
-        Exception(result_code_t result, const char* pszFunction, const int line, const char* pMessage) :
-            std::exception(pMessage),
+        Exception(result_code_t result, const char* pszFunction, const int line, const char* pMessage) noexcept :
+            m_what(pMessage),
             m_result(result),
             m_function(pszFunction),
             m_line(line)
@@ -46,7 +47,7 @@ namespace ING
         {
         }
 
-        const result_code_t Result()
+        const result_code_t Result() const
         {
             return m_result;
         }
@@ -56,15 +57,22 @@ namespace ING
             return m_function.empty() ? nullptr : m_function.c_str();
         }
 
-        const int Line()
+        const int Line() const
         {
             return m_line;
         }
 
+        virtual char const* what() const override
+        {
+            return m_what.c_str();
+        }
+
     protected:
-        result_code_t m_result = result_code_t::succeeded;
+        result_code_t m_result = result_code_t::unknown;
         std::string m_function;
         int m_line = -1;
+
+        std::string m_what;
     };
 
 #ifdef _WIN32

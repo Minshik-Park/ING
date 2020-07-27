@@ -80,7 +80,7 @@ HRESULT Window::Create(LPWSTR szTitle, int width, int height, bool fullscreen)
 
 	if (m_fullscreen)
 	{
-		m_width = GetSystemMetrics(SM_CXSCREEN);
+		m_width  = GetSystemMetrics(SM_CXSCREEN);
 		m_height = GetSystemMetrics(SM_CYSCREEN);
 
 		DEVMODE dmScreenSettings = {};
@@ -122,7 +122,7 @@ HRESULT Window::Create(LPWSTR szTitle, int width, int height, bool fullscreen)
 	RECT clientRect;
 	GetClientRect(m_hWnd, &clientRect);
 
-	m_clientWidth = clientRect.right - clientRect.left;
+	m_clientWidth  = clientRect.right - clientRect.left;
 	m_clientHeight = clientRect.bottom - clientRect.top;
 
 	return hr;
@@ -187,6 +187,7 @@ void Window::Shutdown()
 	{
 		if (m_fullscreen)
 		{
+			// Try to recover window mode.
 			ChangeDisplaySettings(nullptr, 0);
 		}
 
@@ -204,11 +205,9 @@ void Window::Shutdown()
 ///
 /// Add Windows Message Handler.
 ///
-HRESULT Window::AddMessageHandler(UINT message, WndCallbackFunc callback)
+void Window::AddMessageHandler(UINT message, WndCallbackFunc callback)
 {
 	m_mapCallback[message] = std::move(callback);
-
-	return S_OK;
 }
 
 ///
